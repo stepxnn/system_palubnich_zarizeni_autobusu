@@ -1,39 +1,33 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
-import { PalubniZarizeni } from './PalubniZarizeni';
-
+const PalubniZarizeni_1 = require("./PalubniZarizeni");
 // Potomek třídy PalubniZarizeni, reprezentující tiskárnu jízdenek.
-class TiskarnaJizdenek extends PalubniZarizeni {
-
-    // Atributy specifické pro tiskárnu jízdenek
-    private zbyvajiciPapir: number;
-    private pocetVytisteno: number;
-
+class TiskarnaJizdenek extends PalubniZarizeni_1.PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.
-    constructor (id: number, nazev: string, jeAktivni: boolean, zbyvajiciPapir: number, pocetVytisteno: number) {
+    constructor(id, nazev, jeAktivni, zbyvajiciPapir, pocetVytisteno) {
         super(id, nazev, jeAktivni); // Volá konstruktor rodiče pro nastavení společných atributů.
         this.zbyvajiciPapir = zbyvajiciPapir;
         this.pocetVytisteno = pocetVytisteno;
     }
-
     // Metoda pro tisk jízdenky - zkontroluje dostatek papíru a aktualizuje počet vytisknutých jízdenek a zbývající papír.
-    public tiskJizdenku(jizdenka: Jizdenka): boolean {
+    tiskJizdenku(jizdenka) {
         if (this.zbyvajiciPapir <= 0) {
-            return false
+            return false;
         }
-            this.pocetVytisteno++;
-            this.zbyvajiciPapir--;
-            return true;
+        this.pocetVytisteno++;
+        this.zbyvajiciPapir--;
+        return true;
     }
-
     // Metoda pro tisk jízdenky - zkontroluje dostatek papíru.
-    public dochaziPapir(): boolean{
+    dochaziPapir() {
         if (this.zbyvajiciPapir > 20) {
             return true;
         }
         return false;
     }
     // Implementace abstraktní metody zobrazInfo - vypíše informace o tiskárně jízdenek.
-    public zobrazInfo(): void {
+    zobrazInfo() {
         console.log('Počet Vytisknutých jízdenek: ${this.pocetVytisteno}');
         console.log('Zbývající papír: ${this.zbyvajiciPapir}%');
     }

@@ -25,4 +25,8 @@ abstract class PalubniZarizeni {
 
     // Abstraktní metoda - každý potomek ji musí implementovat sám
     public abstract zobrazInfo(): void;
+
 }
+
+// export třídy, aby ji mohly používat jiné soubory
+export { PalubniZarizeni };
