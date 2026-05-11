@@ -3,6 +3,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "target": "ES6",
-    "module": "commonjs"
+    "module": "es2020",
+    "moduleResolution": "bundler"
   }
 }

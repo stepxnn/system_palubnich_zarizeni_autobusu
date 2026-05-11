@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PalubniZarizeni = void 0;
 // Abstraktní třída - nelze z ní vytvořit objekt přímo, slouží jako základ pro potomky
 class PalubniZarizeni {
     // Constructor - zavolá se automaticky při vytvoření objektu, nastaví atributy
@@ -18,4 +15,5 @@ class PalubniZarizeni {
         this.jeAktivni = false;
     }
 }
-exports.PalubniZarizeni = PalubniZarizeni;
+// export třídy, aby ji mohly používat jiné soubory
+export { PalubniZarizeni };

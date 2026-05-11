@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
-const PalubniZarizeni_1 = require("./PalubniZarizeni");
+import { PalubniZarizeni } from './PalubniPocitac.js';
 // Potomek třídy PalubniZarizeni, reprezentující tiskárnu jízdenek.
-class TiskarnaJizdenek extends PalubniZarizeni_1.PalubniZarizeni {
+class TiskarnaJizdenek extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.
     constructor(id, nazev, jeAktivni, zbyvajiciPapir, pocetVytisteno) {
         super(id, nazev, jeAktivni); // Volá konstruktor rodiče pro nastavení společných atributů.
@@ -28,7 +26,16 @@ class TiskarnaJizdenek extends PalubniZarizeni_1.PalubniZarizeni {
     }
     // Implementace abstraktní metody zobrazInfo - vypíše informace o tiskárně jízdenek.
     zobrazInfo() {
-        console.log('Počet Vytisknutých jízdenek: ${this.pocetVytisteno}');
-        console.log('Zbývající papír: ${this.zbyvajiciPapir}%');
+        console.log('Počet Vytisknutých jízdenek: ' + this.pocetVytisteno);
+        console.log('Zbývající papír: ' + this.zbyvajiciPapir + '%');
+    }
+    // Veřejné gettery pro získání hodnot z konzole / testů
+    getPocetVytisteno() {
+        return this.pocetVytisteno;
+    }
+    getZbyvajiciPapir() {
+        return this.zbyvajiciPapir;
     }
 }
+// export třídy, aby ji mohly používat jiné soubory
+export { TiskarnaJizdenek };

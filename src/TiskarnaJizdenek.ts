@@ -1,5 +1,6 @@
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
-import { PalubniZarizeni } from './PalubniZarizeni';
+import { PalubniZarizeni } from './PalubniPocitac.js';
+import { Jizdenka } from './typy.js';
 
 // Potomek třídy PalubniZarizeni, reprezentující tiskárnu jízdenek.
 class TiskarnaJizdenek extends PalubniZarizeni {
@@ -34,7 +35,18 @@ class TiskarnaJizdenek extends PalubniZarizeni {
     }
     // Implementace abstraktní metody zobrazInfo - vypíše informace o tiskárně jízdenek.
     public zobrazInfo(): void {
-        console.log('Počet Vytisknutých jízdenek: ${this.pocetVytisteno}');
-        console.log('Zbývající papír: ${this.zbyvajiciPapir}%');
+        console.log('Počet Vytisknutých jízdenek: ' + this.pocetVytisteno);
+        console.log('Zbývající papír: ' + this.zbyvajiciPapir + '%');
+    }
+
+    // Veřejné gettery pro získání hodnot z konzole / testů
+    public getPocetVytisteno(): number {
+        return this.pocetVytisteno;
+    }
+
+    public getZbyvajiciPapir(): number {
+        return this.zbyvajiciPapir;
     }
 }
+// export třídy, aby ji mohly používat jiné soubory
+export { TiskarnaJizdenek };
