@@ -1,16 +1,19 @@
-// Importujeme třídy TiskarnaJizdenek a Validator, které jsou definovány v samostatných souborech, aby mohly být použity v tomto hlavním souboru pro zobrazení informací o těchto zařízeních.
+// Tento soubor slouží jako hlavní vstupní bod pro aplikaci, kde jsou importovány třídy TiskarnaJizdenek, Validator a Displejcestujici, a jsou vytvořeny jejich instance. Tyto instance jsou pak přidány do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací. Také je zde definována funkce zobrazinfo, která umožňuje zobrazit informace o všech třech zařízeních v konzoli po jejím zavolání.
 import { TiskarnaJizdenek } from './TiskarnaJizdenek.js';
 import { Validator } from './Validator.js';
+import { Displejcestujici } from './DisplejCestujici.js';
 
 // Vytvoření instancí TiskarnaJizdenek a Validator, které budou použity pro zobrazení informací v konzoli.
 const tiskarna = new TiskarnaJizdenek(1, 'Tiskárna', true, 100, 0);
 const validator = new Validator(2, 'Validator', true, 0, new Date());
+const displejCestujici = new Displejcestujici(3, 'Displej cestujícího', true, 'Nádraží', ['Nádraží', 'Hlavní nádraží', 'Městská stanice'], 1, new Date(), 1, ['Pásmo 1', 'Pásmo 2'], new Date());
 
-// Přidání instancí do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací.
+// Přidání instancí tiskárny, validatoru a displeje cestujícího do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací.
 (window as any).tiskarna = tiskarna;
 (window as any).validator = validator;
+(window as any).displejCestujici = displejCestujici;
 
-// Exportujeme třídy, aby je mohly používat jiné soubory, například pro testování nebo další rozšíření funkcionality.
+// Definice globálního rozhraní pro objekt window, které zahrnuje funkci zobrazinfo, která umožní zobrazení informací o tiskárně jízdenek, validatoru a displeji cestujícího v konzoli.
 declare global {
     interface Window {
         zobrazinfo: () => void;
@@ -20,7 +23,8 @@ declare global {
 window.zobrazinfo = () => {
     tiskarna.zobrazInfo();
     validator.zobrazInfo();
+    displejCestujici.zobrazInfo();
 };
 
-export { TiskarnaJizdenek, Validator };
+export { TiskarnaJizdenek, Validator, Displejcestujici };
 
