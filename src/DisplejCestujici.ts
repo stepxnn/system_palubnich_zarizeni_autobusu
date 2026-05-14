@@ -25,13 +25,9 @@ class Displejcestujici extends PalubniZarizeni {
     }
 
     // Metody pro aktualizaci informací na displeji - tyto metody by měly být volány při změně zastávky, linky, času nebo pásma.
-    public aktualizujZastavku(): string {
-        return this.aktualniZastavka;
-    }
-
-    // Metoda pro aktualizaci seznamu zastávek - měla by být volána při změně trasy autobusu nebo při aktualizaci informací o trase.
-    public aktualizujSeznamZastavek(): string[] {
-        return this.seznamZastavek;
+    public aktualizujZastavku(): void {
+        this.seznamZastavek.shift();
+        this.aktualniZastavka = this.seznamZastavek[0];
     }
 
     // Metoda pro aktualizaci čísla linky - měla by být volána při změně linky autobusu.
