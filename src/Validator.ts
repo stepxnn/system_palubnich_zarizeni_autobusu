@@ -2,6 +2,7 @@ import { TypDokladu } from "./typy.js";
 import { PlatebniKarta } from "./typy.js";
 import { PalubniZarizeni } from "./PalubniPocitac.js";
 
+// Potomek třídy PalubniZarizeni, reprezentující validator pro odbavení cestujících.
 class Validator extends PalubniZarizeni {
 
     // Atributy specifické pro Validator

@@ -33,6 +33,7 @@ class TiskarnaJizdenek extends PalubniZarizeni {
         }
         return false;
     }
+    
     // Implementace abstraktní metody zobrazInfo - vypíše informace o tiskárně jízdenek.
     public zobrazInfo(): void {
         console.log('Počet Vytisknutých jízdenek: ' + this.pocetVytisteno);
