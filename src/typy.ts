@@ -14,10 +14,10 @@ enum TypDokladu {
 }
 
 class PlatebniKarta {
-    id: number;
-    majitel: string;
-    platnost: Date;
-    zustatek: number;
+    private id: number;
+    private majitel: string;
+    private platnost: Date;
+    private zustatek: number;
 
     // Constructor pro inicializaci atributů platební karty
     constructor(id: number, majitel: string, platnost: Date, zustatek: number) {

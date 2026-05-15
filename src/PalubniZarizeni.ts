@@ -2,9 +2,9 @@
 abstract class PalubniZarizeni {
     
     // Atributy - každé zařízení má id, název a informaci jestli je aktivní
-    private id: number;
-    private nazev: string;
-    private jeAktivni: boolean;
+    protected id: number;
+    protected nazev: string;
+    protected jeAktivni: boolean;
 
     // Constructor - zavolá se automaticky při vytvoření objektu, nastaví atributy
     constructor(id: number, nazev: string, jeAktivni: boolean) {

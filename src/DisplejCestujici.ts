@@ -31,9 +31,10 @@ class Displejcestujici extends PalubniZarizeni {
     }
 
     // Metoda pro aktualizaci čísla linky - měla by být volána při změně linky autobusu.
-    public zmenLinku(cisloLinky: number, cil: string): void {
+    public zmenLinku(cisloLinky: number, cil: string, zastavky: string[]): void {
         this.cisloLinky = cisloLinky;
         this.aktualniZastavka = cil;
+        this.seznamZastavek = zastavky;
     }
 
     // Metoda pro aktualizaci času - měla by být volána pravidelně, například každou minutu, aby se aktualizoval aktuální čas a předpokládaný čas příjezdu do následující zastávky.

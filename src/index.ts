@@ -4,7 +4,8 @@ import { Validator } from './Validator.js';
 import { Displejcestujici } from './DisplejCestujici.js';
 import { VnejsiPanel } from './VnejsiPanel.js';
 import { DispecerKomunikace } from './DispecerKomunikace.js';
-import { zastavky, linky, cenik } from './data.js';
+import { PalubniPocitac } from './PalubniPocitac.js';
+import { linky } from './data.js';
 
 // Vytvoření instancí tiskárny jízdenek, validatoru a displeje pro cestujícího s příslušnými parametry. Tyto instance reprezentují zařízení používaná v systému veřejné dopravy a jsou připraveny k použití pro zobrazení informací a testování funkcionality.
 const tiskarna = new TiskarnaJizdenek(
@@ -53,12 +54,14 @@ const dispecerKomunikace = new DispecerKomunikace(
     80
 );
 
+const palubniPocitac = new PalubniPocitac(tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace);
 // Přidání instancí tiskárny, validatoru a displeje cestujícího do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací.
 (window as any).tiskarna = tiskarna;
 (window as any).validator = validator;
 (window as any).displejCestujici = displejCestujici;
 (window as any).vnejsiPanel = vnejsiPanel;
 (window as any).dispecerKomunikace = dispecerKomunikace;
+(window as any).palubniPocitac = palubniPocitac;
 // Definice globálního rozhraní pro objekt window, které zahrnuje funkci zobrazinfo, která umožní zobrazení informací o tiskárně jízdenek, validatoru a displeji cestujícího v konzoli.
 declare global {
     interface Window {

@@ -1,5 +1,4 @@
-import { TypDokladu } from "./typy.js";
-import { PlatebniKarta } from "./typy.js";
+import { TypDokladu, PlatebniKarta } from "./typy.js";
 import { PalubniZarizeni } from "./PalubniZarizeni.js";
 
 // Potomek třídy PalubniZarizeni, reprezentující validator pro odbavení cestujících.

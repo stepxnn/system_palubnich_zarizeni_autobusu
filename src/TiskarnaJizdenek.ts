@@ -28,7 +28,7 @@ class TiskarnaJizdenek extends PalubniZarizeni {
 
     // Metoda pro tisk jízdenky - zkontroluje dostatek papíru.
     public dochaziPapir(): boolean{
-        if (this.zbyvajiciPapir > 20) {
+        if (this.zbyvajiciPapir <= 20) {
             return true;
         }
         return false;

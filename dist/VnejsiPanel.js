@@ -14,9 +14,10 @@ class VnejsiPanel extends PalubniZarizeni {
         this.meziZastavky.shift();
     }
     // Metoda pro změnu linky - aktualizuje číslo linky, cílovou zastávku a mezi zastávky.
-    zmenLinku(cislo, cil) {
+    zmenLinku(cislo, cil, meziZastavky) {
         this.cisloLinky = cislo;
         this.cilovaZastavka = cil;
+        this.meziZastavky = meziZastavky;
     }
     // Implementace abstraktní metody zobrazInfo - vypíše informace o vnějším panelu pro cestující.
     zobrazInfo() {
