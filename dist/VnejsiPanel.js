@@ -1,5 +1,5 @@
 // Import třídy PalubniZarizeni, protože VnejsiPanel je její potomek.
-import { PalubniZarizeni } from "./PalubniPocitac.js";
+import { PalubniZarizeni } from "./PalubniZarizeni.js";
 // Potomek třídy PalubniZarizeni, reprezentující vnější panel pro cestující.
 class VnejsiPanel extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.

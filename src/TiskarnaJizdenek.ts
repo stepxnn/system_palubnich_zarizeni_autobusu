@@ -1,5 +1,5 @@
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
-import { PalubniZarizeni } from './PalubniPocitac.js';
+import { PalubniZarizeni } from './PalubniZarizeni.js';
 import { Jizdenka } from './typy.js';
 
 // Potomek třídy PalubniZarizeni, reprezentující tiskárnu jízdenek.

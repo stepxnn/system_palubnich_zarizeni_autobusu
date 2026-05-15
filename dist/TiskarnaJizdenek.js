@@ -1,5 +1,5 @@
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
-import { PalubniZarizeni } from './PalubniPocitac.js';
+import { PalubniZarizeni } from './PalubniZarizeni.js';
 // Potomek třídy PalubniZarizeni, reprezentující tiskárnu jízdenek.
 class TiskarnaJizdenek extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.

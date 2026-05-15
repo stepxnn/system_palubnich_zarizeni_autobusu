@@ -1,4 +1,4 @@
-import { PalubniZarizeni } from "./PalubniPocitac.js";
+import { PalubniZarizeni } from "./PalubniZarizeni.js";
 // Potomek třídy PalubniZarizeni, reprezentující dispečerskou komunikaci.
 class DispecerKomunikace extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.

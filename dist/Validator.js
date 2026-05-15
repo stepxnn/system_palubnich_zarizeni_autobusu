@@ -1,5 +1,5 @@
 import { TypDokladu } from "./typy.js";
-import { PalubniZarizeni } from "./PalubniPocitac.js";
+import { PalubniZarizeni } from "./PalubniZarizeni.js";
 // Potomek třídy PalubniZarizeni, reprezentující validator pro odbavení cestujících.
 class Validator extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.

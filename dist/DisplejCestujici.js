@@ -1,5 +1,5 @@
 // Displej cestujícího - zobrazuje informace o aktuální zastávce, seznamu zastávek, čísle linky, aktuálním čase, pásmu a předpokládaném čase příjezdu do následující zastávky.
-import { PalubniZarizeni } from './PalubniPocitac.js';
+import { PalubniZarizeni } from './PalubniZarizeni.js';
 // Potomek třídy PalubniZarizeni, reprezentující displej pro cestujícího.
 class Displejcestujici extends PalubniZarizeni {
     // Constructor - volá konstruktor rodiče a nastaví specifické atributy.
