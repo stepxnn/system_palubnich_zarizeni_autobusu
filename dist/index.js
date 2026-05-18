@@ -30,3 +30,31 @@ window.zobrazinfo = () => {
     dispecerKomunikace.zobrazInfo();
 };
 export { TiskarnaJizdenek, Validator, Displejcestujici, VnejsiPanel, DispecerKomunikace };
+// Připojí obsluhu přihlášení: najde tlačítko přes getElementById, načte inputy a zavolá prihlasRidice
+function setupLogin() {
+    const loginBtn = document.getElementById('login-btn');
+    if (!loginBtn)
+        return;
+    loginBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        const usernameEl = document.getElementById('username');
+        const passwordEl = document.getElementById('password');
+        const username = usernameEl ? usernameEl.value.trim() : '';
+        const password = passwordEl ? passwordEl.value : '';
+        try {
+            const ok = palubniPocitac.prihlasRidice(username, password);
+            if (ok) {
+                window.location.href = 'ridicsky-panel.html';
+            }
+            else {
+                const errorMsg = document.getElementById('error-msg');
+                if (errorMsg)
+                    errorMsg.style.display = 'block';
+            }
+        }
+        catch (err) {
+            console.error('Chyba při přihlášení:', err);
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', setupLogin);

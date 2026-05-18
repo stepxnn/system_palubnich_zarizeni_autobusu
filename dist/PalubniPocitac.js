@@ -1,12 +1,13 @@
+import { ridici } from "./data.js";
 class PalubniPocitac {
-    constructor(tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace, kodRidice, hesloRidice) {
+    constructor(tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace) {
         this.tiskarna = tiskarna;
         this.validator = validator;
         this.displejCestujici = displejCestujici;
         this.vnejsiPanel = vnejsiPanel;
         this.dispecerKomunikace = dispecerKomunikace;
-        this.kodRidice = kodRidice;
-        this.hesloRidice = hesloRidice;
+        this.kodRidice = '';
+        this.hesloRidice = '';
     }
     vydejJizdenku(jizdenka) {
         this.tiskarna.tiskJizdenku(jizdenka);
@@ -23,12 +24,8 @@ class PalubniPocitac {
         this.dispecerKomunikace.odeslaniZprav(zprava);
     }
     prihlasRidice(kod, heslo) {
-        if (this.kodRidice === kod && this.hesloRidice === heslo) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        const ridic = ridici.find(r => r.kod === kod && r.heslo === heslo);
+        return ridic !== undefined;
     }
     zobrazinfo() {
         this.tiskarna.zobrazInfo();

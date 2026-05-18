@@ -6,6 +6,7 @@ import { VnejsiPanel } from './VnejsiPanel.js';
 import { DispecerKomunikace } from './DispecerKomunikace.js';
 import { PalubniPocitac } from './PalubniPocitac.js';
 import { linky } from './data.js';
+import { ridici } from './data.js';
 
 // Vytvoření instancí tiskárny jízdenek, validatoru a displeje pro cestujícího s příslušnými parametry. Tyto instance reprezentují zařízení používaná v systému veřejné dopravy a jsou připraveny k použití pro zobrazení informací a testování funkcionality.
 const tiskarna = new TiskarnaJizdenek(
@@ -55,6 +56,7 @@ const dispecerKomunikace = new DispecerKomunikace(
 );
 
 const palubniPocitac = new PalubniPocitac(tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace);
+
 // Přidání instancí tiskárny, validatoru a displeje cestujícího do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací.
 (window as any).tiskarna = tiskarna;
 (window as any).validator = validator;
@@ -79,3 +81,32 @@ window.zobrazinfo = () => {
 
 export { TiskarnaJizdenek, Validator, Displejcestujici, VnejsiPanel, DispecerKomunikace };
 
+// Připojí obsluhu přihlášení: najde tlačítko přes getElementById, načte inputy a zavolá prihlasRidice
+function setupLogin(): void {
+    const loginBtn = document.getElementById('login-btn');
+    if (!loginBtn) return;
+
+    loginBtn.addEventListener('click', (ev: Event) => {
+        ev.preventDefault();
+
+        const usernameEl = document.getElementById('username') as HTMLInputElement | null;
+        const passwordEl = document.getElementById('password') as HTMLInputElement | null;
+
+        const username = usernameEl ? usernameEl.value.trim() : '';
+        const password = passwordEl ? passwordEl.value : '';
+
+        try {
+            const ok = palubniPocitac.prihlasRidice(username, password);
+            if (ok) {
+                window.location.href = 'ridicsky-panel.html';
+            } else {
+                const errorMsg = document.getElementById('error-msg');
+            if (errorMsg) errorMsg.style.display = 'block';
+            }
+        } catch (err) {
+            console.error('Chyba při přihlášení:', err);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', setupLogin);
