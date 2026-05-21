@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel řidiče</title>
+    
+</head>
+<body>
+    <header>
+        <div>
+            <div>
+                <span>705</span>
+                <span>Kolín, nádraží</span>
+            </div>
+            <div>
+                <span>+3 min</span>
+                <span id="cas">--:--</span>
+                <button id="odhlasit-btn" class="btn btn-sm btn-outline-light">Odhlásit</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <aside>
+                <div>
+                    <button id="nastaveni-btn" class="btn btn-outline-secondary">Nastavení</button>
+                    <button id="dispecink-btn" class="btn btn-outline-secondary">Dispečink</button>
+                    <button id="dalsi-zastavka-btn" class="btn btn-primary">Další zastávka</button>
+                </div>
+            </aside>
+
+            <section>
+                <h5>Zastávky</h5>
+                <ul id="zastavkovy-list"></ul>
+            </section>
+
+            <aside>
+                <h5>Jízdenky</h5>
+                <div>Kategorie cestujícího</div>
+                <div>
+                    <button id="dospeli" class="btn btn-outline-primary">Dospělí</button>
+                    <button id="senior" class="btn btn-outline-primary">Senior 65+</button>
+                    <button id="student" class="btn btn-outline-primary">Student</button>
+                    <button id="junior" class="btn btn-outline-primary">Junior 15-18</button>
+                    <button id="dite6-14" class="btn btn-outline-primary">Dítě 6-14</button>
+                    <button id="dite" class="btn btn-outline-primary">Dítě do 6 let</button>
+                </div>
+
+                <div>Zvláštní jízdné</div>
+                <div>
+                    <button id="ztp-p" class="btn btn-outline-success">ZTP/P</button>
+                    <button id="ztp" class="btn btn-outline-success">ZTP</button>
+                </div>
+
+                <div>Zavazadla</div>
+                <div>
+                    <button id="kolo" class="btn btn-outline-dark">Kolo</button>
+                    <button id="lyze" class="btn btn-outline-dark">Lyže</button>
+                    <button id="kufr" class="btn btn-outline-dark">Kufr</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script type="module" src="../dist/panel-ridice.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palubní počítač</title>
+    
+</head>
+<body>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <h3>Palubní počítač</h3>
+                        <form id="login-form" novalidate>
+                            <div>
+                                <label for="username">Kód</label>
+                                <input id="username" name="username" type="text" placeholder="Zadejte kód" required autocomplete="username" />
+                            </div>
+                            <div>
+                                <label for="password">Heslo</label>
+                                <input id="password" name="password" type="password" placeholder="Zadejte heslo" required autocomplete="current-password" />
+                            </div>
+                            <div>
+                                <button id="login-btn" type="submit" class="btn btn-primary">Přihlásit</button>
+                            </div>
+                            <div id="error-msg" role="alert">Nesprávný kód nebo heslo</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../dist/index.js"></script>
+</body>
+</html>

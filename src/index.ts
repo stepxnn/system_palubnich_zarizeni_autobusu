@@ -98,7 +98,7 @@ function setupLogin(): void {
         try {
             const ok = palubniPocitac.prihlasRidice(username, password);
             if (ok) {
-                window.location.href = 'ridicsky-panel.html';
+                window.location.href = 'panel-ridice.html';
             } else {
                 const errorMsg = document.getElementById('error-msg');
             if (errorMsg) errorMsg.style.display = 'block';
