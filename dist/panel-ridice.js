@@ -39,24 +39,4 @@ function vyberZastavku(index) {
     // zde jen zavoláme aktualizaci, pokud chceme posunout aktuální zastávku
     // palubniPocitac.aktualizujZastavku();
 }
-function setupHandlers() {
-    // logout button: přesměruje zpět na přihlašovací stránku
-    const odhl = document.getElementById('odhlasit-btn');
-    if (odhl) {
-        odhl.addEventListener('click', (ev) => {
-            ev.preventDefault();
-            // případné vyčištění session/localStorage pokud bude potřeba
-            try {
-                sessionStorage.clear();
-                localStorage.removeItem('prihlasenRidic');
-            }
-            catch (e) { }
-            window.location.href = 'index.html';
-        });
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderZastavky();
-    setupHandlers();
-});
+document.addEventListener('DOMContentLoaded', renderZastavky);

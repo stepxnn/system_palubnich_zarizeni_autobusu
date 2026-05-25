@@ -4,66 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel řidiče</title>
-    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles/panel.css">
 </head>
 <body>
-    <header>
-        <div>
-            <div>
-                <span>705</span>
-                <span>Kolín, nádraží</span>
+    <div class="page">
+        <header>
+            <div class="brand">Linka <strong>705</strong> — Kolín, nádraží</div>
+            <div class="header-meta">
+                <div class="stop">+3 min</div>
+                <div id="cas">--:--</div>
+                <button id="odhlasit-btn" class="w3-button w3-border w3-white" title="Odhlásit">
+                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20"><path d="M10 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Odhlásit
+                </button>
             </div>
-            <div>
-                <span>+3 min</span>
-                <span id="cas">--:--</span>
-                <button id="odhlasit-btn" class="btn btn-sm btn-outline-light">Odhlásit</button>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <main>
-        <div>
-            <aside>
-                <div>
-                    <button id="nastaveni-btn" class="btn btn-outline-secondary">Nastavení</button>
-                    <button id="dispecink-btn" class="btn btn-outline-secondary">Dispečink</button>
-                    <button id="dalsi-zastavka-btn" class="btn btn-primary">Další zastávka</button>
-                </div>
-            </aside>
+        <aside class="left">
+            <button id="nastaveni-btn" class="w3-button icon-btn" aria-label="Nastavení" title="Nastavení">
+                    <img class="left-icon" src="icons/nastaveni.jpg" alt="Nastavení">
+                <span class="sr-only">Nastavení</span>
+            </button>
+            <button id="dispecink-btn" class="w3-button icon-btn" aria-label="Dispečink" title="Dispečink">
+                    <img class="left-icon" src="icons/dispecink.jpg" alt="Dispečink">
+                <span class="sr-only">Dispečink</span>
+            </button>
+            <button id="dalsi-zastavka-btn" class="w3-button icon-btn" aria-label="Další zastávka" title="Další zastávka">
+                    <img class="left-icon" src="icons/dalsi-zastavka.jpg" alt="Další zastávka">
+                <span class="sr-only">Další zastávka</span>
+            </button>
+        </aside>
 
-            <section>
-                <h5>Zastávky</h5>
-                <ul id="zastavkovy-list"></ul>
-            </section>
+        <section class="center">
+            <h5>Zastávky</h5>
+            <ul id="zastavkovy-list"></ul>
+        </section>
 
-            <aside>
+        <aside class="right">
+            <div class="ticket">
                 <h5>Jízdenky</h5>
-                <div>Kategorie cestujícího</div>
-                <div>
-                    <button id="dospeli" class="btn btn-outline-primary">Dospělí</button>
-                    <button id="senior" class="btn btn-outline-primary">Senior 65+</button>
-                    <button id="student" class="btn btn-outline-primary">Student</button>
-                    <button id="junior" class="btn btn-outline-primary">Junior 15-18</button>
-                    <button id="dite6-14" class="btn btn-outline-primary">Dítě 6-14</button>
-                    <button id="dite" class="btn btn-outline-primary">Dítě do 6 let</button>
-                </div>
+                <button id="dospeli" class="w3-button w3-block w3-blue w3-large">Dospělí</button>
+                <button id="senior" class="w3-button w3-block w3-blue w3-large">Senior 65+</button>
+                <button id="student" class="w3-button w3-block w3-blue w3-large">Student</button>
+                <button id="junior" class="w3-button w3-block w3-blue w3-large">Junior 15-18</button>
+                <button id="dite6-14" class="w3-button w3-block w3-blue w3-large">Dítě 6-14</button>
+                <button id="dite" class="w3-button w3-block w3-blue w3-large">Dítě do 6 let</button>
+            </div>
 
-                <div>Zvláštní jízdné</div>
-                <div>
-                    <button id="ztp-p" class="btn btn-outline-success">ZTP/P</button>
-                    <button id="ztp" class="btn btn-outline-success">ZTP</button>
-                </div>
+            <div class="ticket">
+                <h5>Zvláštní jízdné</h5>
+                <button id="ztp-p" class="w3-button w3-block w3-blue w3-large">ZTP/P</button>
+                <button id="ztp" class="w3-button w3-block w3-blue w3-large">ZTP</button>
+            </div>
 
-                <div>Zavazadla</div>
-                <div>
-                    <button id="kolo" class="btn btn-outline-dark">Kolo</button>
-                    <button id="lyze" class="btn btn-outline-dark">Lyže</button>
-                    <button id="kufr" class="btn btn-outline-dark">Kufr</button>
-                </div>
-            </aside>
-        </div>
-    </main>
+            <div class="ticket">
+                <h5>Zavazadla</h5>
+                <button id="kolo" class="w3-button w3-block w3-blue w3-large">Kolo</button>
+                <button id="lyze" class="w3-button w3-block w3-blue w3-large">Lyže</button>
+                <button id="kufr" class="w3-button w3-block w3-blue w3-large">Kufr</button>
+            </div>
 
-    <script type="module" src="../dist/panel-ridice.js"></script>
+            <div style="margin-top:10px">
+                <button id="vydat-btn" class="w3-button w3-block w3-green w3-large">Vydat jízdenku</button>
+                <button id="storno-btn" class="w3-button w3-block w3-red w3-large">Storno</button>
+            </div>
+        </aside>
+    </div>
+        <script type="module" src="../dist/panel-ridice.js"></script>
+    <script>
+        // Small logout handler added inline so we don't modify distributed JS
+        (function(){
+            const odhl = document.getElementById('odhlasit-btn');
+            if (!odhl) return;
+            odhl.addEventListener('click', function(ev){
+                ev.preventDefault();
+                try{ sessionStorage.clear(); localStorage.removeItem('prihlasenRidic'); } catch(e){}
+                window.location.href = 'index.html';
+            });
+        })();
+    </script>
 </body>
 </html>

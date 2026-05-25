@@ -4,34 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palubní počítač</title>
-    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-    <div>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <h3>Palubní počítač</h3>
-                        <form id="login-form" novalidate>
-                            <div>
-                                <label for="username">Kód</label>
-                                <input id="username" name="username" type="text" placeholder="Zadejte kód" required autocomplete="username" />
-                            </div>
-                            <div>
-                                <label for="password">Heslo</label>
-                                <input id="password" name="password" type="password" placeholder="Zadejte heslo" required autocomplete="current-password" />
-                            </div>
-                            <div>
-                                <button id="login-btn" type="submit" class="btn btn-primary">Přihlásit</button>
-                            </div>
-                            <div id="error-msg" role="alert">Nesprávný kód nebo heslo</div>
-                        </form>
-                    </div>
-                </div>
+    <main class="w3-container">
+        <h3 class="w3-center">Palubní počítač</h3>
+        <form id="login-form" novalidate class="w3-card-2 w3-padding">
+            <div class="w3-section">
+                <label for="username">Kód</label>
+                <input id="username" name="username" class="w3-input" type="text" placeholder="Zadejte kód" required autocomplete="username" />
             </div>
-        </div>
-    </div>
+            <div class="w3-section">
+                <label for="password">Heslo</label>
+                <input id="password" name="password" class="w3-input" type="password" placeholder="Zadejte heslo" required autocomplete="current-password" />
+            </div>
+            <div class="w3-section">
+                <button id="login-btn" type="submit" class="w3-button w3-block w3-blue w3-large">Přihlásit</button>
+            </div>
+            <div id="error-msg" role="alert" class="w3-text-red">Nesprávný kód nebo heslo</div>
+        </form>
+    </main>
 
     <script type="module" src="../dist/index.js"></script>
 </body>

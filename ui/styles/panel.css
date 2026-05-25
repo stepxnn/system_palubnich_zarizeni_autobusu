@@ -1,0 +1,45 @@
+/* Panel styles — inspired by simple W3Schools examples */
+:root{
+  --blue-light:#d9eaff;
+  --blue-dark:#0b62c9;
+  --green:#28a745;
+  --red:#dc3545;
+  --text:#111;
+}
+html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff}
+/* layout: header top, left aside, center, right aside */
+/* enforce 16:9 layout when possible so driver doesn't need to scroll */
+.page{display:grid;grid-template-columns:80px 1fr 300px;grid-template-rows:auto 1fr;grid-template-areas:"header header header" "left center right";width:100vw;height:100vh}
+header{grid-area:header;background:linear-gradient(180deg,var(--blue-light),#c6e0ff);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--blue-dark)}
+header .brand{font-weight:700;font-size:1.1rem}
+.header-meta{display:flex;gap:12px;align-items:center}
+.header-meta .stop{font-weight:600}
+/* left column: vertical buttons */
+.left{grid-area:left;padding:8px 6px;border-right:1px solid #eee;display:flex;flex-direction:column;gap:8px;background:#fafafa;align-items:center}
+.left .btn-large{display:flex;align-items:center;gap:8px;padding:12px 10px;height:56px;border-radius:6px;border:1px solid #cfcfcf;background:linear-gradient(180deg,#fff,#f3f3f3);font-size:1.02rem;text-align:left;touch-action:manipulation}
+.left .btn-large svg.icon{width:20px;height:20px;flex:0 0 20px}
+/* icon-only buttons for left column */
+.left .icon-btn{width:52px;height:52px;padding:6px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d0d0d0;background:#fff}
+.left .left-icon{width:32px;height:32px;object-fit:contain;display:block}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* center: stops list vertical */
+.center{grid-area:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.center h5{margin:0 0 6px 0}
+/* make stop list wider and taller for better touch targets */
+#zastavkovy-list{width:100%;max-width:760px;display:flex;flex-direction:column;gap:8px;padding:0;list-style:none}
+/* larger touch-friendly stop buttons (wider and taller) */
+#zastavkovy-list button.stop-item{width:100%;padding:20px 18px;height:96px;border-radius:8px;border:1px solid #ddd;background:linear-gradient(180deg,#fff,#f8fbff);text-align:left;font-size:1.18rem;display:flex;align-items:center}
+#zastavkovy-list button.stop-item.active{border-color:var(--blue-dark);background:linear-gradient(180deg,#e8f1ff,#d6eaff)}
+/* right: tickets stacked */
+.right{grid-area:right;padding:12px;border-left:1px solid #eee;background:#fafafa;display:flex;flex-direction:column;gap:8px;overflow:auto}
+.ticket{display:flex;flex-direction:column;gap:8px}
+.ticket button.ticket-btn{width:100%;padding:14px;border-radius:6px;border:0;font-size:1rem;color:#fff;text-align:left;touch-action:manipulation}
+.ticket button.ticket-btn.primary{background:linear-gradient(180deg,var(--blue-dark),#0749a6)}
+.ticket button.ticket-btn.issue{background:linear-gradient(180deg,var(--green),#1e7a34)}
+.ticket button.ticket-btn.cancel{background:linear-gradient(180deg,var(--red),#b02a37)}
+/* utility small icons inside buttons */
+svg.icon{stroke:#111;fill:none;stroke-width:1.6}
+/* make buttons square-ish and large like 'Synergy OCC' */
+.btn-square{width:100%;height:56px;border-radius:6px;padding:10px;display:flex;align-items:center;gap:12px}
+/* responsive */
+@media(max-width:900px){.page{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;grid-template-areas:"header" "left" "center"} .right{order:3;grid-area:center;height:auto}}
