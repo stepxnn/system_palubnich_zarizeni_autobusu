@@ -35,6 +35,10 @@ function setupLogin() {
     const loginBtn = document.getElementById('login-btn');
     if (!loginBtn)
         return;
+    // skryjeme chybovou hlášku při načtení stránky
+    const initialError = document.getElementById('error-msg');
+    if (initialError)
+        initialError.style.display = 'none';
     loginBtn.addEventListener('click', (ev) => {
         ev.preventDefault();
         const usernameEl = document.getElementById('username');

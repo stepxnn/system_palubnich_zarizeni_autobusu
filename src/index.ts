@@ -86,6 +86,10 @@ function setupLogin(): void {
     const loginBtn = document.getElementById('login-btn');
     if (!loginBtn) return;
 
+    // skryjeme chybovou hlášku při načtení stránky
+    const initialError = document.getElementById('error-msg');
+    if (initialError) initialError.style.display = 'none';
+
     loginBtn.addEventListener('click', (ev: Event) => {
         ev.preventDefault();
 
@@ -101,7 +105,7 @@ function setupLogin(): void {
                 window.location.href = 'panel-ridice.html';
             } else {
                 const errorMsg = document.getElementById('error-msg');
-            if (errorMsg) errorMsg.style.display = 'block';
+                if (errorMsg) errorMsg.style.display = 'block';
             }
         } catch (err) {
             console.error('Chyba při přihlášení:', err);

@@ -21,7 +21,8 @@ function renderZastavky() {
     linka.zastavky.forEach((zastavka, index) => {
         const el = document.createElement('button');
         el.type = 'button';
-        el.className = 'list-group-item list-group-item-action';
+        // add our touch-friendly stop class plus existing list-group classes
+        el.className = 'stop-item list-group-item list-group-item-action';
         el.textContent = zastavka;
         el.addEventListener('click', () => vyberZastavku(index));
         list.appendChild(el);
@@ -39,4 +40,36 @@ function vyberZastavku(index) {
     // zde jen zavoláme aktualizaci, pokud chceme posunout aktuální zastávku
     // palubniPocitac.aktualizujZastavku();
 }
-document.addEventListener('DOMContentLoaded', renderZastavky);
+// Nastavení odhlášení
+function setupLogoutAndClock() {
+    const odhl = document.getElementById('odhlasit-btn');
+    if (odhl) {
+        odhl.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            try {
+                sessionStorage.clear();
+                localStorage.removeItem('prihlasenRidic');
+            }
+            catch (e) { }
+            window.location.href = 'index.html';
+        });
+    }
+    // Funkce pro aktualizaci zobrazení data a času
+    function updateDateTime() {
+        const now = new Date();
+        const dateEl = document.getElementById('date');
+        const timeEl = document.getElementById('time');
+        if (dateEl) {
+            dateEl.textContent = now.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        }
+        if (timeEl) {
+            timeEl.textContent = now.toLocaleTimeString('cs-CZ', { hour12: false });
+        }
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
+document.addEventListener('DOMContentLoaded', () => {
+    renderZastavky();
+    setupLogoutAndClock();
+});

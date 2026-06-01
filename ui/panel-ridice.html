@@ -10,10 +10,17 @@
 <body>
     <div class="page">
         <header>
-            <div class="brand">Linka <strong>705</strong> — Kolín, nádraží</div>
-            <div class="header-meta">
-                <div class="stop">+3 min</div>
-                <div id="cas">--:--</div>
+            <div class="header-left">
+                <div id="date" class="date">&nbsp;</div>
+                <div class="line-number">705</div>
+            </div>
+
+            <div class="header-center">
+                <div id="delay" class="delay">+3 min</div>
+            </div>
+
+            <div class="header-right">
+                <div id="time" class="time">--:--:--</div>
                 <button id="odhlasit-btn" class="w3-button w3-border w3-white" title="Odhlásit">
                     <svg class="icon" viewBox="0 0 24 24" width="20" height="20"><path d="M10 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     Odhlásit
@@ -23,15 +30,15 @@
 
         <aside class="left">
             <button id="nastaveni-btn" class="w3-button icon-btn" aria-label="Nastavení" title="Nastavení">
-                    <img class="left-icon" src="icons/nastaveni.jpg" alt="Nastavení">
+                    <img class="left-icon" src="icons/nastaveni.png" alt="Nastavení">
                 <span class="sr-only">Nastavení</span>
             </button>
             <button id="dispecink-btn" class="w3-button icon-btn" aria-label="Dispečink" title="Dispečink">
-                    <img class="left-icon" src="icons/dispecink.jpg" alt="Dispečink">
+                    <img class="left-icon" src="icons/dispecink.png" alt="Dispečink">
                 <span class="sr-only">Dispečink</span>
             </button>
             <button id="dalsi-zastavka-btn" class="w3-button icon-btn" aria-label="Další zastávka" title="Další zastávka">
-                    <img class="left-icon" src="icons/dalsi-zastavka.jpg" alt="Další zastávka">
+                    <img class="left-icon" src="icons/dalsi-zastavka.png" alt="Další zastávka">
                 <span class="sr-only">Další zastávka</span>
             </button>
         </aside>
@@ -72,17 +79,5 @@
         </aside>
     </div>
         <script type="module" src="../dist/panel-ridice.js"></script>
-    <script>
-        // Small logout handler added inline so we don't modify distributed JS
-        (function(){
-            const odhl = document.getElementById('odhlasit-btn');
-            if (!odhl) return;
-            odhl.addEventListener('click', function(ev){
-                ev.preventDefault();
-                try{ sessionStorage.clear(); localStorage.removeItem('prihlasenRidic'); } catch(e){}
-                window.location.href = 'index.html';
-            });
-        })();
-    </script>
 </body>
 </html>
