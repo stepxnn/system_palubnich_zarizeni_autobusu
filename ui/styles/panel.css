@@ -18,15 +18,15 @@
 /* Rozložení stránky: hlavička nahoře, levý panel, střed, pravý panel */
 .page{display:grid;grid-template-columns:80px 1fr 300px;grid-template-rows:auto 1fr;grid-template-areas:"header header right" "left center right";width:100vw;height:100vh}
 /* Hlavička (datum, zpoždění, čas, odhlášení) */
-header{grid-area:header;background:linear-gradient(180deg,var(--blue-light),#c6e0ff);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--blue-dark);position:relative}
+header{grid-area:header;background:linear-gradient(180deg,#eef6ff,#e1efff);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(11,98,201,0.08);position:relative;box-shadow:0 4px 16px rgba(11,98,201,0.04)}
 /* rozložení hlavičkových oblastí: vlevo = datum/linka, střed = zpoždění, vpravo = čas/odhlášení */
-.header-left{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;margin-left:104px}
-.header-center{display:flex;flex-direction:row;align-items:center;justify-content:center}
+.header-left{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;margin-left:12px}
+.header-center{display:flex;flex-direction:column;align-items:center;justify-content:center}
 .header-right{display:flex;align-items:center;gap:12px}
-.date{font-size:1.3rem;color:#222;font-weight:800}
-.line-number{font-weight:800;font-size:1.9rem;min-width:88px;height:56px;display:flex;align-items:center;justify-content:center;border:2px solid var(--blue-dark);border-radius:4px;background:#fff;position:absolute;left:8px;top:50%;transform:translateY(-50%)}
-.delay{font-size:1.5rem;font-weight:900;color:var(--red)}
-.time{font-size:1.3rem;font-weight:800}
+.date{font-size:0.95rem;color:#556;color:#6b7785;font-weight:600;opacity:0.9}
+.line-number{font-weight:900;font-size:1.45rem;min-width:92px;height:auto;padding:8px 12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(11,98,201,0.15);border-radius:10px;background:#fff;box-shadow:0 6px 18px rgba(11,98,201,0.04)}
+.delay{font-size:1.6rem;font-weight:900;color:var(--blue-dark);letter-spacing:0.6px}
+.time{font-size:1.15rem;font-weight:800;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 4px 10px rgba(0,0,0,0.03)}
 .left{grid-area:left;padding:8px 6px;border-right:1px solid #eee;display:flex;flex-direction:column;gap:8px;background:#fafafa;align-items:center}
 .left .btn-large{display:flex;align-items:center;gap:8px;padding:12px 10px;height:56px;border-radius:var(--btn-radius);border:1px solid #cfcfcf;background:linear-gradient(180deg,#fff,#f3f3f3);font-size:1.02rem;text-align:left;touch-action:manipulation}
 .left .btn-large svg.icon{width:20px;height:20px;flex:0 0 20px}
@@ -35,10 +35,11 @@ header{grid-area:header;background:linear-gradient(180deg,var(--blue-light),#c6e
 .left .left-icon{width:38px;height:38px;object-fit:contain;display:block}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* Střed: seznam zastávek */
-.center{grid-area:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.center{grid-area:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;overflow:auto;-webkit-overflow-scrolling:touch}
 .center h5{margin:0 0 6px 0}
 /* Kontejner seznamu zastávek (sloupcový seznam) */
-#zastavkovy-list{width:100%;max-width:760px;display:flex;flex-direction:column;gap:8px;padding:0;list-style:none}
+/* center the stops list and limit its width so frames are centered on page */
+#zastavkovy-list{width:100%;max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:8px;padding:0;list-style:none}
 
 #zastavkovy-list button.stop-item.active{
   border-color:var(--blue-dark);
@@ -54,12 +55,50 @@ header{grid-area:header;background:linear-gradient(180deg,var(--blue-light),#c6e
   border:0;
   font-size:var(--btn-font-size);
   color:#fff;
-  text-align:left;
+  text-align:center;
   touch-action:manipulation;
 }
 .ticket button.ticket-btn.primary{background:linear-gradient(180deg,var(--blue-dark),#0749a6)}
 .ticket button.ticket-btn.issue{background:linear-gradient(180deg,var(--green),#1e7a34)}
 .ticket button.ticket-btn.cancel{background:linear-gradient(180deg,var(--red),#b02a37)}
+
+/* Rows with two compact buttons */
+.ticket-row{display:flex;gap:8px}
+.ticket-row{display:flex;gap:8px;align-items:stretch}
+.ticket-row .half-btn{flex:1;padding:14px var(--btn-padding-horizontal);border-radius:var(--btn-radius);font-size:1.06rem;text-align:center;color:#fff;border:0;box-sizing:border-box}
+.ticket-row .half-btn.w3-blue{background:linear-gradient(180deg,var(--blue-dark),#0749a6)}
+.ticket-row .half-btn.w3-green{background:linear-gradient(180deg,var(--green),#1e7a34)}
+.ticket-row .half-btn.w3-red{background:linear-gradient(180deg,var(--red),#b02a37)}
+
+/* selected ticket visual state */
+.ticket button.selected,
+.ticket .half-btn.selected{
+  outline:3px solid rgba(11,98,201,0.18);
+  box-shadow:0 6px 18px rgba(11,98,201,0.06);
+  transform:translateY(-1px);
+}
+
+/* spacer to keep grid alignment when a cell is empty */
+.half-spacer{flex:1}
+
+/* make stop buttons larger, bolder and more touch-friendly */
+#zastavkovy-list button.stop-item{
+  display:block;
+  width:100%;
+  padding:14px 16px;
+  font-size:1.08rem;
+  font-weight:700;
+  min-height:56px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  text-align:center;
+  background:#fff;
+  touch-action:manipulation;
+  box-sizing:border-box;
+}
+
+/* small vertical gap between issue buttons */
+#vydat-btn{margin-bottom:10px}
 
 /* Apply same visual vocabulary to w3-button classes used in HTML */
 .w3-button.w3-block.w3-blue,
@@ -82,4 +121,47 @@ svg.icon{stroke:#111;fill:none;stroke-width:1.6}
 /* make buttons square-ish and large like 'Synergy OCC' */
 .btn-square{width:100%;height:56px;border-radius:6px;padding:10px;display:flex;align-items:center;gap:12px}
 /* responsive */
-@media(max-width:900px){.page{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;grid-template-areas:"header" "left" "center"} .right{order:3;grid-area:center;height:auto}}
+@media(max-width:900px){
+  .page{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;grid-template-areas:"header" "left" "center"}
+  .right{order:3;grid-area:center;height:auto}
+}
+
+/* Mobile optimizations (phones) */
+@media (max-width:600px){
+  :root{--btn-padding-vertical:12px;--btn-padding-horizontal:12px;--btn-font-size:1rem}
+
+  .page{grid-template-columns:1fr;grid-template-rows:auto 1fr auto auto;grid-template-areas:"header" "center" "right" "left";height:100vh}
+
+  header{padding:10px}
+  .header-left{margin-left:8px;gap:8px}
+  .header-center{flex-direction:row;gap:8px}
+  .date{font-size:0.9rem}
+  .line-number{font-size:1.15rem;padding:6px 10px;border-radius:8px}
+  .delay{font-size:1.25rem}
+  .time{font-size:1rem;padding:6px 8px}
+
+  /* make center scrollable and give more touch room */
+  .center{padding:10px;gap:10px}
+  #zastavkovy-list{max-width:100%;gap:10px}
+  #zastavkovy-list button.stop-item{padding:16px 14px;font-size:1.12rem;min-height:64px;border-radius:10px}
+
+  /* Tickets become full-width rows stacked and more touchable */
+  .right{grid-area:right;order:2;padding:10px;border-left:0;border-top:1px solid #eee}
+  .ticket{gap:10px}
+  .ticket-row{flex-direction:row;gap:8px}
+  .ticket-row .half-btn{padding:14px;font-size:1rem;border-radius:8px}
+
+  /* Left icons move to bottom row, make them larger and evenly spaced */
+  .left{grid-area:left;order:3;flex-direction:row;justify-content:space-around;padding:8px 6px;border-right:0;border-top:1px solid #eee}
+  .left .icon-btn{width:68px;height:68px;padding:8px}
+  .left .left-icon{width:42px;height:42px}
+
+  /* Ensure buttons are easy to tap */
+  .w3-button.w3-block.w3-blue,
+  .w3-button.w3-block.w3-green,
+  .w3-button.w3-block.w3-red{padding:12px 10px;font-size:1rem}
+
+  /* prevent page-level scrolling interfering with center scroll */
+  html,body{height:100%;overflow:hidden}
+  .center{overflow:auto;-webkit-overflow-scrolling:touch}
+}

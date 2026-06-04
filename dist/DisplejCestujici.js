@@ -52,6 +52,32 @@ class Displejcestujici extends PalubniZarizeni {
     getSeznamPasem() {
         return this.seznamPasem;
     }
+    // Dodatek: přidány gettery pro získání aktuální zastávky, času, předpokládaného času a pásma pro testování a zobrazení informací.
+    getAktualniZastavka() {
+        return this.aktualniZastavka;
+    }
+    getAktualniCas() {
+        return this.aktualniCas;
+    }
+    getPredpokladanyCas() {
+        return this.predpokladanyCas;
+    }
+    getAktualniPasmo() {
+        return this.aktualniPasmo;
+    }
+    setAktualniCas(d) {
+        this.aktualniCas = d;
+    }
+    setPredpokladanyCas(d) {
+        this.predpokladanyCas = d;
+    }
+    setAktualniZastavkaByIndex(index) {
+        if (index >= 0 && index < this.seznamZastavek.length) {
+            // updatování aktuální zastávky a seznamu zastávek od zadaného indexu
+            this.seznamZastavek = this.seznamZastavek.slice(index);
+            this.aktualniZastavka = this.seznamZastavek[0];
+        }
+    }
 }
 // export třídy, aby ji mohly používat jiné soubory
 export { Displejcestujici };

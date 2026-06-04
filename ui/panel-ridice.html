@@ -21,10 +21,6 @@
 
             <div class="header-right">
                 <div id="time" class="time">--:--:--</div>
-                <button id="odhlasit-btn" class="w3-button w3-border w3-white" title="Odhlásit">
-                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20"><path d="M10 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Odhlásit
-                </button>
             </div>
         </header>
 
@@ -41,6 +37,14 @@
                     <img class="left-icon" src="icons/dalsi-zastavka.png" alt="Další zastávka">
                 <span class="sr-only">Další zastávka</span>
             </button>
+            <button id="open-displej-btn" class="w3-button icon-btn" aria-label="Otevřít displej cestující" title="Otevřít displej cestující">
+                <img class="left-icon" src="icons/displej-cestujici.png" alt="Displej cestující">
+                <span class="sr-only">Displej cestující</span>
+            </button>
+            <button id="odhlasit-btn" class="w3-button icon-btn" aria-label="Odhlásit" title="Odhlásit" style="margin-top:12px">
+                <img class="left-icon" src="icons/odhlasit.png" alt="Odhlásit">
+                <span class="sr-only">Odhlásit</span>
+            </button>
         </aside>
 
         <section class="center">
@@ -51,25 +55,38 @@
         <aside class="right">
             <div class="ticket">
                 <h5>Jízdenky</h5>
-                <button id="dospeli" class="w3-button w3-block w3-blue w3-large">Dospělí</button>
-                <button id="senior" class="w3-button w3-block w3-blue w3-large">Senior 65+</button>
-                <button id="student" class="w3-button w3-block w3-blue w3-large">Student</button>
-                <button id="junior" class="w3-button w3-block w3-blue w3-large">Junior 15-18</button>
-                <button id="dite6-14" class="w3-button w3-block w3-blue w3-large">Dítě 6-14</button>
-                <button id="dite" class="w3-button w3-block w3-blue w3-large">Dítě do 6 let</button>
+                <div class="ticket-row">
+                    <button id="dospeli" class="w3-button half-btn w3-blue w3-large">Dospělí</button>
+                    <button id="senior" class="w3-button half-btn w3-blue w3-large">Senior 65+</button>
+                </div>
+                <div class="ticket-row">
+                    <button id="student" class="w3-button half-btn w3-blue w3-large">Student</button>
+                    <button id="junior" class="w3-button half-btn w3-blue w3-large">Junior 15-18</button>
+                </div>
+                <div class="ticket-row">
+                    <button id="dite6-14" class="w3-button half-btn w3-blue w3-large">Dítě 6-14</button>
+                    <button id="dite" class="w3-button half-btn w3-blue w3-large">Dítě do 6 let</button>
+                </div>
             </div>
 
             <div class="ticket">
                 <h5>Zvláštní jízdné</h5>
-                <button id="ztp-p" class="w3-button w3-block w3-blue w3-large">ZTP/P</button>
-                <button id="ztp" class="w3-button w3-block w3-blue w3-large">ZTP</button>
+                <div class="ticket-row">
+                    <button id="ztp-p" class="w3-button half-btn w3-blue w3-large">ZTP/P</button>
+                    <button id="ztp" class="w3-button half-btn w3-blue w3-large">ZTP</button>
+                </div>
             </div>
 
             <div class="ticket">
                 <h5>Zavazadla</h5>
-                <button id="kolo" class="w3-button w3-block w3-blue w3-large">Kolo</button>
-                <button id="lyze" class="w3-button w3-block w3-blue w3-large">Lyže</button>
-                <button id="kufr" class="w3-button w3-block w3-blue w3-large">Kufr</button>
+                <div class="ticket-row">
+                    <button id="kolo" class="w3-button half-btn w3-blue w3-large">Kolo</button>
+                    <button id="lyze" class="w3-button half-btn w3-blue w3-large">Lyže</button>
+                </div>
+                <div class="ticket-row">
+                    <button id="kufr" class="w3-button half-btn w3-blue w3-large">Kufr</button>
+                    <div class="half-spacer"></div>
+                </div>
             </div>
 
             <div style="margin-top:10px">
