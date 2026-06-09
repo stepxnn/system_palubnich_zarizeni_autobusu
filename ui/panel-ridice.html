@@ -41,6 +41,10 @@
                 <img class="left-icon" src="icons/displej-cestujici.png" alt="Displej cestující">
                 <span class="sr-only">Displej cestující</span>
             </button>
+            <button id="open-validator-btn" class="w3-button icon-btn" aria-label="Otevřít validator" title="Otevřít validator" style="margin-top:8px">
+                <img class="left-icon" src="icons/displej-cestujici.png" alt="Validator">
+                <span class="sr-only">Validator</span>
+            </button>
             <button id="odhlasit-btn" class="w3-button icon-btn" aria-label="Odhlásit" title="Odhlásit" style="margin-top:12px">
                 <img class="left-icon" src="icons/odhlasit.png" alt="Odhlásit">
                 <span class="sr-only">Odhlásit</span>
@@ -93,8 +97,22 @@
                 <button id="vydat-btn" class="w3-button w3-block w3-green w3-large">Vydat jízdenku</button>
                 <button id="storno-btn" class="w3-button w3-block w3-red w3-large">Storno</button>
             </div>
+
+            <!-- Prostor pro fotografii validatoru -->
+            <div id="validator-photo" style="margin-top:12px; width:100%; height:120px; border:2px dashed #ccc; background:#fafafa; display:flex;align-items:center;justify-content:center;color:#777;font-size:14px">Místo pro fotku validatoru</div>
         </aside>
     </div>
+        <script>
+            // Otevře validator v novém okně pro rychlý náhled
+            document.addEventListener('DOMContentLoaded', function(){
+                const btn = document.getElementById('open-validator-btn');
+                if(btn){
+                    btn.addEventListener('click', function(){
+                        window.open('validator.html','_blank');
+                    });
+                }
+            });
+        </script>
         <script type="module" src="../dist/panel-ridice.js"></script>
 </body>
 </html>

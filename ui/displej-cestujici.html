@@ -3,48 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Displej pro cestující</title>
-    
+    <title>Displej pro cestující - PID Styl</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        /* Celkové nastavení displeje */
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #1a1a1a; /* Tmavé okolí displeje */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .screen {
+            background-color: #e6e6e6; /* Typická světle šedá pro PID displeje */
+            width: 100%;
+            max-width: 1024px; /* Standardní rozlišení */
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* Hlavička s číslem linky a cílem */
+        .pid-header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #cccccc;
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        #cislo-linky {
+            font-size: 56px;
+            font-weight: 800;
+            margin-right: 40px;
+            color: #000;
+        }
+
+        #cilovy-nazev {
+            font-size: 40px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* Hlavní obsah - seznam zastávek */
+        .pid-content {
+            flex-grow: 1;
+            padding: 30px 40px;
+            overflow: hidden;
+        }
+
+        /* Osa trasy (Timeline) */
+        ul#seznam-zastavek {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+
+        /* Vertikální čára */
+        ul#seznam-zastavek::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 11px; /* Vycentrování vůči tečkám */
+            width: 4px;
+            background-color: #999;
+            z-index: 0;
+        }
+
+        /* Jednotlivé zastávky */
+        ul#seznam-zastavek li {
+            position: relative;
+            padding-left: 45px;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #444;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Tečka pro každou zastávku */
+        ul#seznam-zastavek li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            background-color: #fff;
+            border: 5px solid #999;
+            border-radius: 50%;
+        }
+
+        /* Zvýraznění první zastávky (příští zastávka) */
+        ul#seznam-zastavek li:first-child {
+            color: #000;
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        ul#seznam-zastavek li:first-child::before {
+            border-color: #000;
+            background-color: #000; /* U PID je často příští zastávka plná černá nebo červená */
+        }
+
+        .more-indicator {
+            padding-left: 45px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        /* Spodní lišta (Pásma, čas) */
+        .pid-footer {
+            background-color: #ffffff;
+            border-top: 4px solid #cccccc;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .footer-right {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Skrytí pomocných elementů pro JS, které vizuálně na PID displeji nepotřebujeme */
+        .sr-only { display: none; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Displej pro cestující</h1>
-    </header>
 
-    <main>
-        <section>
+    <div class="screen w3-card-4">
+        <header class="pid-header">
+            <div id="cislo-linky">—</div>
             <div>
-                <div id="cislo-linky">—</div>
-                <div>
-                    <div>Cílová stanice</div>
-                    <div id="cilovy-nazev">—</div>
-                </div>
+                <div id="cilovy-nazev">—</div>
             </div>
-        </section>
+        </header>
 
-        <section id="upcoming-stops">
-            <h2>Následující zastávky</h2>
+        <main class="pid-content">
             <ul id="seznam-zastavek"></ul>
             <div id="more-ind" class="more-indicator"></div>
-        </section>
+        </main>
 
-        <div class="bottom-bar">
-            <div id="aktualni-zastavka-val">—</div>
-            <div id="cas-a-pasmo">
-                <div>Aktuální čas: <strong id="aktualni-cas">—</strong></div>
-                <div>Předpoklad: <strong id="predpokladany-cas">—</strong></div>
-                <div>Pásma: <strong id="aktualni-pasmo">—</strong></div>
+        <footer class="pid-footer">
+            <div class="footer-left w3-text-dark-grey">
+                <div>Příští: <span id="aktualni-zastavka-val" class="w3-text-black">—</span></div>
+                <ul id="seznam-pasem" style="display:flex; gap:8px; flex-wrap:wrap; padding:0; list-style:none; margin:0; font-size: 20px;"></ul>
             </div>
-            <div>
-                <h3>Seznam pásem</h3>
-                <ul id="seznam-pasem" style="display:flex;gap:8px;flex-wrap:wrap;padding:0;list-style:none;margin:0"></ul>
+            
+            <div class="footer-right">
+                <span id="aktualni-cas">—</span>
             </div>
+        </footer>
+
+        <div class="sr-only">
+            <span id="predpokladany-cas"></span>
+            <span id="aktualni-pasmo"></span>
         </div>
-    </main>
-
-    <footer>
-        <small>Displej</small>
-    </footer>
+    </div>
 
     <script>
         // Helper: bezpečně nastaví text elementu
@@ -67,7 +207,7 @@
             // current stop
             setText('aktualni-zastavka-val', state.aktualniZastavka || '—');
 
-            // upcoming stops: show up to 6 after current
+            // upcoming stops: show up to 5 after current (aby se vešly na displej)
             const list = document.getElementById('seznam-zastavek');
             const moreInd = document.getElementById('more-ind');
             if(list){
@@ -76,34 +216,80 @@
                 let idx = 0;
                 if(current && stops.length){ idx = stops.indexOf(current); if(idx < 0) idx = -1; }
                 const start = Math.max(0, idx + 1);
-                const MAX = 6;
+                const MAX = 5; // Upraveno na 5, aby UI vypadalo vzdušněji podle PID
                 const slice = stops.slice(start, start + MAX);
-                slice.forEach(s => { const li = document.createElement('li'); li.textContent = s; list.appendChild(li); });
+                
+                slice.forEach(s => { 
+                    const li = document.createElement('li'); 
+                    li.textContent = s; 
+                    list.appendChild(li); 
+                });
+                
                 const remaining = Math.max(0, stops.length - (start + slice.length));
-                if(moreInd){ if(remaining>0){ moreInd.style.display='block'; moreInd.textContent = `+ ${remaining} další`; } else { moreInd.style.display='none'; } }
-                const displayCount = document.getElementById('display-count'); if(displayCount) displayCount.textContent = String(slice.length);
+                if(moreInd){ 
+                    if(remaining > 0){ 
+                        moreInd.style.display = 'block'; 
+                        moreInd.textContent = `↓ a ${remaining} dalších`; 
+                    } else { 
+                        moreInd.style.display = 'none'; 
+                    } 
+                }
             }
 
-            setText('aktualni-cas', state.aktualniCas ? new Date(state.aktualniCas).toLocaleTimeString('cs-CZ',{hour12:false}) : '—');
+            // Nastavení času s oříznutím sekund (PID displeje ukazují jen HH:MM)
+            setText('aktualni-cas', state.aktualniCas ? new Date(state.aktualniCas).toLocaleTimeString('cs-CZ',{hour: '2-digit', minute:'2-digit', hour12:false}) : '—');
             setText('predpokladany-cas', state.predpokladanyCas ? new Date(state.predpokladanyCas).toLocaleTimeString('cs-CZ',{hour12:false}) : '—');
             setText('aktualni-pasmo', String(state.aktualniPasmo));
 
             const pasList = document.getElementById('seznam-pasem');
-            if(pasList){ pasList.innerHTML=''; (state.seznamPasem||[]).forEach(p=>{ const li=document.createElement('li'); li.textContent=p; li.style.listStyle='none'; li.style.padding='6px 8px'; li.style.border='1px solid #eee'; li.style.borderRadius='6px'; li.style.marginRight='6px'; pasList.appendChild(li); }); }
+            if(pasList){ 
+                pasList.innerHTML=''; 
+                (state.seznamPasem||[]).forEach(p=>{ 
+                    const li=document.createElement('li'); 
+                    li.textContent = p; 
+                    // Úprava stylů pro W3 a PID vzhled
+                    li.className = 'w3-border w3-border-dark-grey w3-round-small w3-white w3-center';
+                    li.style.padding = '2px 8px'; 
+                    li.style.minWidth = '35px';
+                    pasList.appendChild(li); 
+                }); 
+            }
+        }
+
+        // Pro testovací účely vygenerujeme fiktivní data, pokud žádná nejsou
+        function createDummyData() {
+            return {
+                cisloLinky: "705",
+                seznamZastavek: ["Kolín, Nádraží", "Kolín, Družstevní dům", "Kolín, Nemocnice", "Kutná Hora, Sedlec", "Kutná Hora, Hlavní nádraží", "Kutná Hora, Autobusové nádraží"],
+                aktualniZastavka: "Kolín, Nádraží",
+                aktualniCas: new Date().getTime(),
+                seznamPasem: ["6", "7"]
+            };
         }
 
         // Při načtení okna načteme poslední uložený stav
         document.addEventListener('DOMContentLoaded', ()=>{
             const raw = localStorage.getItem('displejState');
-            if(raw){ try{ renderState(JSON.parse(raw)); }catch(e){ console.warn('Neplatný stav displeje', e); } }
+            if(raw){ 
+                try{ renderState(JSON.parse(raw)); }catch(e){ console.warn('Neplatný stav displeje', e); } 
+            } else {
+                // Načte testovací data, abys hned viděl výsledek (můžeš smazat)
+                renderState(createDummyData());
+            }
         });
 
         // Když jiná karta uloží nový stav, storage event nám to oznámí
         window.addEventListener('storage',(ev)=>{
             if(ev.key==='displejState'){
-                try{ renderState(JSON.parse(ev.newValue)); }catch(e){ console.warn('Neplatný stav z storage', e); }
+                try{ renderState(JSON.parse(ev.newValue)); }catch(e){ console.warn('Neplatný stav ze storage', e); }
             }
         });
+        
+        // Hodiny reálného času (pro aktualizaci času i bez změny stavu)
+        setInterval(() => {
+            const timeEl = document.getElementById('aktualni-cas');
+            if(timeEl) timeEl.textContent = new Date().toLocaleTimeString('cs-CZ', {hour: '2-digit', minute:'2-digit', hour12:false});
+        }, 1000);
     </script>
 </body>
 </html>

@@ -1,12 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validátor</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Validator</title>
+    <style>
+        :root{--accent:#00a3d9}
+        html,body{height:100%;margin:0}
+        body{display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-family:"Segoe UI", Arial, sans-serif;padding:20px}
+        .screen{
+            background-color:#e6e6e6;
+            width:100%;
+            max-width:360px; /* menší velikost */
+            aspect-ratio:1/1; /* čtverec */
+            display:flex;flex-direction:column;border-radius:8px;overflow:hidden;box-shadow:0 0 20px rgba(0,0,0,0.6);
+        }
+        .header{background:#fff;border-bottom:3px solid #ddd;display:flex;align-items:center;padding:14px 20px}
+        .logo{font-weight:800;color:#000;font-size:18px;margin-right:14px}
+        .time{margin-left:auto;font-size:15px;color:#333}
+        .content{flex:1;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+        .label{font-size:14px;color:#666}
+        .stop{font-size:28px;font-weight:800;color:#111;margin:8px 0}
+        .dest{font-size:22px;font-weight:700;color:#222;margin:6px 0}
+        .row{width:100%;display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #e0e0e0}
+        .price{font-size:30px;font-weight:900;color:var(--accent)}
+        .footer{background:#fff;border-top:3px solid #ddd;padding:12px 18px;font-size:14px;color:#444;text-align:center}
+    </style>
 </head>
 <body>
-    
+    <div class="screen w3-card-4" role="region" aria-label="Validator displej">
+        <div class="header">
+            <div class="logo">VALIDATOR</div>
+            <div id="aktualni-cas" class="time">—</div>
+        </div>
+
+        <div class="content">
+            <div class="label">Aktuální zastávka</div>
+            <div class="stop">Náměstí Svobody</div>
+
+            <div class="label" style="margin-top:12px">Cíl cesty</div>
+            <div class="dest">Hlavní nádraží</div>
+
+            <div style="height:12px"></div>
+
+            <div class="row">
+                <div class="label">Konečná cena</div>
+                <div class="price">45 Kč</div>
+            </div>
+        </div>
+
+        <div class="footer">Neinteraktivní náhled — pouze zobrazení</div>
+    </div>
+
+    <script>
+        function updateHeaderTime(){
+            const el = document.getElementById('aktualni-cas');
+            if(!el) return;
+            const now = new Date();
+            el.textContent = now.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit', hour12: false });
+        }
+
+        // inicializace a periodická aktualizace každou minutu
+        updateHeaderTime();
+        // vypočítat zbývající ms do další minuty, aby se čas přepnul přesně na :00
+        (function alignAndSchedule(){
+            const now = new Date();
+            const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+            setTimeout(() => {
+                updateHeaderTime();
+                setInterval(updateHeaderTime, 60 * 1000);
+            }, msToNextMinute);
+        })();
+    </script>
 </body>
 </html>
