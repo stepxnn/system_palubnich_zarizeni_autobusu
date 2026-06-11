@@ -1,30 +1,38 @@
+// ============================================================
+// TŘÍDA: DispecerKomunikace
+// ------------------------------------------------------------
+// Simuluje spojení mezi autobusem a dispečinkem.
+// Ukládá historii zpráv a hlídá sílu signálu.
+// Chatové rozhraní řeší samostatný skript stranky/dispecer-komunikace.ts.
+// ============================================================
 import { PalubniZarizeni } from "./PalubniZarizeni.js";
 // Potomek třídy PalubniZarizeni, reprezentující dispečerskou komunikaci.
 class DispecerKomunikace extends PalubniZarizeni {
-    // Constructor - volá konstruktor rodiče a nastaví specifické atributy.
+    // Konstruktor: volá konstruktor rodiče (super) a nastaví specifické atributy.
     constructor(id, nazev, jeAktivni, historieZprav, silaSignalu) {
         super(id, nazev, jeAktivni);
         this.historieZprav = historieZprav;
         this.silaSignalu = silaSignalu;
     }
-    // Metoda pro příjem zpráv - měla by být volána, když dispečer obdrží zprávu od řidiče nebo jiného zařízení.
+    // Příjem zprávy od dispečera - uloží ji do historie s označením směru.
+    // push() přidá nový prvek na konec pole.
     prijemZprav(zprava) {
         this.historieZprav.push('[Příjem]' + zprava);
     }
-    // Metoda pro odesílání zpráv - měla by být volána, když dispečer potřebuje odeslat zprávu řidiči nebo jinému zařízení.
+    // Odeslání zprávy dispečerovi - uloží ji do historie s označením směru.
     odeslaniZprav(zprava) {
         this.historieZprav.push('[Odeslání]' + zprava);
     }
-    // Metoda pro kontrolu síly signálu - měla by být volána pravidelně, například každou minutu, aby se zajistilo, že dispečerská komunikace funguje správně.
+    // Kontrola síly signálu: vrací true, pokud je signál silnější než 50 %.
     kontrolaSignalu() {
-        return this.silaSignalu > 50; // Příklad podmínky, může být upraveno podle potřeby
+        return this.silaSignalu > 50;
     }
-    // Implementace abstraktní metody zobrazInfo - vypíše informace o dispečerské komunikaci.
+    // Implementace abstraktní metody zobrazInfo - výpis stavu do konzole.
     zobrazInfo() {
         console.log('Historie zpráv: ' + this.historieZprav.join(', '));
         console.log('Síla signálu: ' + this.silaSignalu + '%');
     }
-    // Veřejné gettery pro získání hodnot z konzole / testů
+    // ---------- Gettery: bezpečné čtení soukromých hodnot zvenčí ----------
     getHistorieZprav() {
         return this.historieZprav;
     }
@@ -32,4 +40,5 @@ class DispecerKomunikace extends PalubniZarizeni {
         return this.silaSignalu;
     }
 }
+// Export: umožňuje třídu importovat v jiných souborech.
 export { DispecerKomunikace };

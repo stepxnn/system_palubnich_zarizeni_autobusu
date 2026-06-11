@@ -4,31 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Validator</title>
+    <!-- theme.css = společný vzhled obrazovek, pages/validator.css = úpravy jen pro tuto stránku. -->
     <link rel="stylesheet" href="styles/theme.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .screen {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/pages/validator.css">
 </head>
 <body>
-    <!-- Obrazovka validatoru. Zobrazuje zjednodušený stav odbavení a aktuální zastávku. -->
+    <!-- Obrazovka validatoru. Zobrazuje aktuální zastávku, cíl a poslední vydanou jízdenku.
+         Hodnoty doplňuje skript dist/stranky/validator.js z dat v localStorage. -->
     <div class="screen w3-card-4" role="region" aria-label="Validator displej">
+        <!-- Hlavička s názvem zařízení a aktuálním časem. -->
         <div class="header">
             <div class="logo">VALIDATOR</div>
             <div id="aktualni-cas" class="time">—</div>
         </div>
 
         <div class="content">
+            <!-- Aktuální poloha autobusu (přebírá se z panelu řidiče). -->
             <div class="label">Aktuální zastávka</div>
             <div class="stop" id="aktualni-zastavka-validator">Náměstí Svobody</div>
 
@@ -37,25 +28,26 @@
 
             <div style="height: 12px;"></div>
 
-            <!-- Sekce pro zobrazení vydané jízdenky -->
-            <div id="ticket-section" style="display: none; margin-top: 20px; padding-top: 15px; border-top: 2px solid #ccc;">
-                <div class="label" style="color: #4CAF50; font-weight: bold;">Vydaná jízdenka</div>
-                
-                <div style="margin-top: 10px; font-size: 14px;">
+            <!-- Sekce s poslední vydanou jízdenkou - JavaScript ji zobrazí, až nějaká existuje. -->
+            <div id="ticket-section">
+                <div class="label ticket-nadpis">Vydaná jízdenka</div>
+
+                <div class="ticket-udaje">
                     <div><strong>Trasa:</strong> <span id="ticket-from">-</span> → <span id="ticket-to">-</span></div>
                     <div><strong>Typ:</strong> <span id="ticket-type">-</span></div>
+                    <!-- Doplňky (kolo, kufr...) se zobrazí jen tehdy, když nějaké jsou. -->
                     <div id="ticket-addons-container" style="display: none;">
                         <div><strong>Doplňky:</strong> <span id="ticket-addons">-</span></div>
                     </div>
                     <div style="margin-top: 8px;"><strong>Pásem:</strong> <span id="ticket-zones">-</span></div>
                 </div>
 
-                <div class="row" style="margin-top: 12px;">
-                    <div class="label" style="color: #2196F3;">Cena</div>
-                    <div class="price" id="ticket-price" style="color: #4CAF50; font-weight: bold;">-</div>
+                <div class="row ticket-cena-radek">
+                    <div class="label ticket-cena-label">Cena</div>
+                    <div class="price" id="ticket-price">-</div>
                 </div>
 
-                <div style="margin-top: 8px; font-size: 12px; color: #999;">
+                <div class="ticket-cas">
                     Čas vydání: <span id="ticket-time">-</span>
                 </div>
             </div>
@@ -67,110 +59,7 @@
         </div>
     </div>
 
-    <script>
-        // Aktualizuje čas v horní liště validatoru.
-        function updateHeaderTime() {
-            const el = document.getElementById('aktualni-cas');
-            if (!el) return;
-            const now = new Date();
-            el.textContent = now.toLocaleTimeString('cs-CZ', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
-            });
-        }
-
-        // Aktualizace zastávky a cíle z localStorage
-        function updateStopInfo() {
-            try {
-                const raw = localStorage.getItem('displejState');
-                if (raw) {
-                    // Stejný stav používá i displej cestujícího, takže validator nemusí mít vlastní kopii dat.
-                    const state = JSON.parse(raw);
-                    const stopEl = document.getElementById('aktualni-zastavka-validator');
-                    const destEl = document.getElementById('cil-cesty');
-                    
-                    if (stopEl && state.aktualniZastavka) {
-                        stopEl.textContent = state.aktualniZastavka;
-                    }
-                    if (destEl && state.seznamZastavek && state.seznamZastavek.length > 0) {
-                        destEl.textContent = state.seznamZastavek[state.seznamZastavek.length - 1];
-                    }
-                }
-            } catch (e) {
-                console.warn('Chyba při načítání stavu validatoru:', e);
-            }
-        }
-
-        // Aktualizace zobrazení vydané jízdenky
-        function updateTicketInfo() {
-            try {
-                const raw = localStorage.getItem('currentTicket');
-                const ticketSection = document.getElementById('ticket-section');
-                
-                if (raw) {
-                    const ticket = JSON.parse(raw);
-                    
-                    // Aktualizuj všechny prvky jízdenky
-                    document.getElementById('ticket-from').textContent = ticket.zastavkaOd || '-';
-                    document.getElementById('ticket-to').textContent = ticket.zastavkaDo || '-';
-                    document.getElementById('ticket-type').textContent = ticket.typJizdneho || '-';
-                    document.getElementById('ticket-price').textContent = `${ticket.cena} Kč`;
-                    document.getElementById('ticket-time').textContent = ticket.cas || '-';
-                    document.getElementById('ticket-zones').textContent = ticket.pocetPasem || '-';
-                    
-                    // Zobraz doplňky, pokud existují
-                    const addonsContainer = document.getElementById('ticket-addons-container');
-                    if (ticket.doplnky && ticket.doplnky.length > 0) {
-                        document.getElementById('ticket-addons').textContent = ticket.doplnky.join(', ');
-                        addonsContainer.style.display = 'block';
-                    } else {
-                        addonsContainer.style.display = 'none';
-                    }
-                    
-                    // Zobraz sekci s jízdenkou
-                    ticketSection.style.display = 'block';
-                } else {
-                    // Skryj sekci, pokud žádná jízdenka není
-                    ticketSection.style.display = 'none';
-                }
-            } catch (e) {
-                console.warn('Chyba při načítání jízdenky:', e);
-            }
-        }
-
-        // Inicializace a periodická aktualizace
-        updateHeaderTime();
-        updateStopInfo();
-        updateTicketInfo();
-
-        // Vypočítat zbývající ms do další minuty
-        // Tato funkce nejdřív počká přesně do začátku další minuty a pak aktualizuje čas každou minutu.
-        (function alignAndSchedule() {
-            const now = new Date();
-            const msToNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
-            setTimeout(() => {
-                updateHeaderTime();
-                setInterval(updateHeaderTime, 60 * 1000);
-            }, msToNextMinute);
-        })();
-
-        // Poslouchání změn v localStorage
-        // Když panel řidiče změní zastávku nebo vydá jízdenku, jiné okno dostane událost storage.
-        window.addEventListener('storage', (ev) => {
-            if (ev.key === 'displejState') {
-                updateStopInfo();
-            }
-            if (ev.key === 'currentTicket') {
-                updateTicketInfo();
-            }
-        });
-
-        // Aktualizace každých 5 sekund pro načtení změn z jiného okna
-        setInterval(() => {
-            updateStopInfo();
-            updateTicketInfo();
-        }, 5000);
-    </script>
+    <!-- Logika stránky je v TypeScriptu (src/stranky/validator.ts), zde se načítá zkompilovaná verze. -->
+    <script type="module" src="../dist/stranky/validator.js"></script>
 </body>
 </html>

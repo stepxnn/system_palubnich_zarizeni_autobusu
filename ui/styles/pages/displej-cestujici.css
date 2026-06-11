@@ -1,0 +1,146 @@
+/* Celkové nastavení displeje */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #1a1a1a; /* Tmavé okolí displeje */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.screen {
+    background-color: #e6e6e6; /* Typická světle šedá pro PID displeje */
+    width: 100%;
+    max-width: 1024px; /* Standardní rozlišení */
+    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+/* Hlavička s číslem linky a cílem */
+.pid-header {
+    background-color: #ffffff;
+    border-bottom: 4px solid #cccccc;
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+#cislo-linky {
+    font-size: 56px;
+    font-weight: 800;
+    margin-right: 40px;
+    color: #000;
+}
+
+#cilovy-nazev {
+    font-size: 40px;
+    font-weight: bold;
+    color: #222;
+}
+
+/* Hlavní obsah - seznam zastávek */
+.pid-content {
+    flex-grow: 1;
+    padding: 30px 40px;
+    overflow: hidden;
+}
+
+/* Osa trasy (Timeline) */
+ul#seznam-zastavek {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+/* Vertikální čára */
+ul#seznam-zastavek::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 11px; /* Vycentrování vůči tečkám */
+    width: 4px;
+    background-color: #999;
+    z-index: 0;
+}
+
+/* Jednotlivé zastávky */
+ul#seznam-zastavek li {
+    position: relative;
+    padding-left: 45px;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #444;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Tečka pro každou zastávku */
+ul#seznam-zastavek li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border: 5px solid #999;
+    border-radius: 50%;
+}
+
+/* Zvýraznění první zastávky (příští zastávka) */
+ul#seznam-zastavek li:first-child {
+    color: #000;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+ul#seznam-zastavek li:first-child::before {
+    border-color: #000;
+    background-color: #000; /* U PID je často příští zastávka plná černá nebo červená */
+}
+
+.more-indicator {
+    padding-left: 45px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #777;
+    margin-top: 10px;
+}
+
+/* Spodní lišta (Pásma, čas) */
+.pid-footer {
+    background-color: #ffffff;
+    border-top: 4px solid #cccccc;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.footer-right {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Skrytí pomocných elementů pro JS, které vizuálně na PID displeji nepotřebujeme */
+.sr-only { display: none; }

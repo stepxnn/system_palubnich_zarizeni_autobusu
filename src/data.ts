@@ -1,9 +1,18 @@
+// ============================================================
+// STATICKÁ DATA
+// ------------------------------------------------------------
+// Data nahrazující databázi: řidiči, zastávky, linky, ceník a slevy.
+// V reálné aplikaci by podobné údaje přicházely z databáze nebo API.
+// ============================================================
+
+// Seznam řidičů pro přihlášení (kód + heslo + jméno).
 const ridici = [
     { kod: '1111', heslo: '8689', jmeno: 'Štěpán Němeček' },
     { kod: '2222', heslo: '8691', jmeno: 'Jan Novák' },
 ]
 
-//seznam zatávek s jejich pásmy
+// Seznam zastávek s jejich tarifními pásmy.
+// Každý prvek pole je objekt s názvem zastávky a číslem pásma.
 const zastavky = [
   { nazev: "Kutná Hora,aut.st.", pasmo: 7 },
   { nazev: "Kutná Hora,Žižkov,u hřbitova", pasmo: 7 },
@@ -23,6 +32,8 @@ const zastavky = [
   { nazev: "Kolín,nádraží", pasmo: 6 }
 ];
 
+// Pole objektů reprezentující linky. Každá linka má své číslo, směr a seznam zastávek.
+// Pořadí zastávek v poli určuje směr jízdy.
 const linky = [
     {
         cislo: 705,
@@ -37,6 +48,8 @@ const linky = [
     }
 ];
 
+// Ceník definovaný jako pole objektů. V kódu se pak dá snadno najít cena podle počtu pásem.
+// pocetPasem znamená, přes kolik tarifních pásem cestující jede.
 const cenik = [
     { pocetPasem: 1, cena: 12 },
     { pocetPasem: 2, cena: 24 },
@@ -50,4 +63,17 @@ const cenik = [
     { pocetPasem: 10, cena: 120 },
 ];
 
-export { zastavky, linky, cenik, ridici };
+// Koeficienty slev pro jednotlivé typy jízdenek (1.0 = plná cena, 0.5 = polovina, 0.0 = zdarma)
+const koeficientyTypu: Record<string, number> = {
+    'dospeli': 1.0,
+    'senior': 0.5,
+    'student': 0.5,
+    'junior': 0.5,
+    'dite6-14': 0.5,
+    'dite': 0.0,
+    'ztp-p': 0.0,
+    'ztp': 0.5
+};
+
+// Exportovaný seznam umožní ostatním souborům použít stejná data přes import.
+export { zastavky, linky, cenik, ridici, koeficientyTypu };

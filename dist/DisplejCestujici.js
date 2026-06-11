@@ -1,58 +1,53 @@
-// Displej cestujícího - zobrazuje informace o aktuální zastávce, seznamu zastávek, čísle linky, aktuálním čase, pásmu a předpokládaném čase příjezdu do následující zastávky.
+// ============================================================
+// TŘÍDA: Displejcestujici
+// ------------------------------------------------------------
+// Model vnitřního displeje pro cestující. Drží informace o aktuální
+// zastávce, seznamu zastávek, čísle linky a časech.
+// Vykreslování do HTML řeší samostatný skript stranky/displej-cestujici.ts.
+// ============================================================
 import { PalubniZarizeni } from './PalubniZarizeni.js';
-// Potomek třídy PalubniZarizeni, reprezentující displej pro cestujícího.
+// Dědičnost (Inheritance): Třída Displejcestujici rozšiřuje (extends) základní PalubniZarizeni.
+// Přebírá tak ID, název a metody aktivuj/deaktivuj.
 class Displejcestujici extends PalubniZarizeni {
-    // Constructor - volá konstruktor rodiče a nastaví specifické atributy.
-    constructor(id, nazev, jeAktivni, aktualniZastavka, seznamZastavek, cisloLinky, aktualniCas, aktualniPasmo, seznamPasem, predpokladanyCas) {
+    // Konstruktor: super() volá konstruktor rodičovské třídy (PalubniZarizeni).
+    constructor(id, nazev, jeAktivni, aktualniZastavka, seznamZastavek, cisloLinky, aktualniCas, predpokladanyCas) {
         super(id, nazev, jeAktivni);
         this.aktualniZastavka = aktualniZastavka;
         this.seznamZastavek = seznamZastavek;
         this.cisloLinky = cisloLinky;
         this.aktualniCas = aktualniCas;
-        this.aktualniPasmo = aktualniPasmo;
-        this.seznamPasem = seznamPasem;
         this.predpokladanyCas = predpokladanyCas;
     }
-    // Metody pro aktualizaci informací na displeji - tyto metody by měly být volány při změně zastávky, linky, času nebo pásma.
+    // Logický posun na další zastávku.
+    // Metoda shift() odstraní PRVNÍ prvek pole - pole se tak "posune"
+    // a na indexu 0 je nová aktuální zastávka.
     aktualizujZastavku() {
         this.seznamZastavek.shift();
         this.aktualniZastavka = this.seznamZastavek[0];
     }
-    // Metoda pro aktualizaci čísla linky - měla by být volána při změně linky autobusu.
+    // Změna linky: nastaví nové číslo linky, cíl a seznam zastávek.
+    // Volá se při přepnutí autobusu na jinou linku.
     zmenLinku(cisloLinky, cil, zastavky) {
         this.cisloLinky = cisloLinky;
         this.aktualniZastavka = cil;
         this.seznamZastavek = zastavky;
     }
-    // Metoda pro aktualizaci času - měla by být volána pravidelně, například každou minutu, aby se aktualizoval aktuální čas a předpokládaný čas příjezdu do následující zastávky.
-    aktualizujPredpokladanyCas() {
-        return this.predpokladanyCas;
-    }
-    // Metoda pro aktualizaci času - měla by být volána pravidelně, například každou minutu, aby se aktualizoval aktuální čas a předpokládaný čas příjezdu do následující zastávky.
-    aktualizujPasmo() {
-        return this.aktualniPasmo;
-    }
-    // Implementace abstraktní metody zobrazInfo - vypíše informace o displeji pro cestujícího.
+    // Implementace povinné abstraktní metody z rodiče - výpis stavu do konzole.
+    // .join(', ') spojí pole textů do jednoho řetězce odděleného čárkami.
     zobrazInfo() {
         console.log('Aktuální zastávka: ' + this.aktualniZastavka);
         console.log('Seznam zastávek: ' + this.seznamZastavek.join(', '));
         console.log('Číslo linky: ' + this.cisloLinky);
         console.log('Aktuální čas: ' + this.aktualniCas);
-        console.log('Aktuální pásmo: ' + this.aktualniPasmo);
-        console.log('Seznam pásem: ' + this.seznamPasem.join(', '));
         console.log('Předpokládaný čas příjezdu do následující zastávky: ' + this.predpokladanyCas);
     }
-    // Veřejné gettery pro získání hodnot z konzole / testů
+    // ---------- Gettery: bezpečné čtení soukromých hodnot zvenčí ----------
     getCisloLinky() {
         return this.cisloLinky;
     }
     getSeznamZastavek() {
         return this.seznamZastavek;
     }
-    getSeznamPasem() {
-        return this.seznamPasem;
-    }
-    // Dodatek: přidány gettery pro získání aktuální zastávky, času, předpokládaného času a pásma pro testování a zobrazení informací.
     getAktualniZastavka() {
         return this.aktualniZastavka;
     }
@@ -62,22 +57,20 @@ class Displejcestujici extends PalubniZarizeni {
     getPredpokladanyCas() {
         return this.predpokladanyCas;
     }
-    getAktualniPasmo() {
-        return this.aktualniPasmo;
-    }
+    // ---------- Settery: kontrolovaná změna soukromých hodnot ----------
     setAktualniCas(d) {
         this.aktualniCas = d;
     }
     setPredpokladanyCas(d) {
         this.predpokladanyCas = d;
     }
+    // Nastaví aktuální zastávku podle indexu v seznamu (seznam zůstane netknutý).
     setAktualniZastavkaByIndex(index) {
+        // Kontrola mezí pole (bounds check), aby nedošlo k chybě (undefined), pokud index neexistuje.
         if (index >= 0 && index < this.seznamZastavek.length) {
-            // updatování aktuální zastávky a seznamu zastávek od zadaného indexu
-            this.seznamZastavek = this.seznamZastavek.slice(index);
-            this.aktualniZastavka = this.seznamZastavek[0];
+            this.aktualniZastavka = this.seznamZastavek[index];
         }
     }
 }
-// export třídy, aby ji mohly používat jiné soubory
+// Export: umožňuje třídu importovat v jiných souborech.
 export { Displejcestujici };

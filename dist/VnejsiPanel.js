@@ -1,3 +1,9 @@
+// ============================================================
+// TŘÍDA: VnejsiPanel
+// ------------------------------------------------------------
+// Model vnějšího panelu na boku autobusu - ukazuje číslo linky,
+// cílovou zastávku a zastávky po cestě.
+// ============================================================
 // Import třídy PalubniZarizeni, protože VnejsiPanel je její potomek.
 import { PalubniZarizeni } from "./PalubniZarizeni.js";
 // Potomek třídy PalubniZarizeni, reprezentující vnější panel pro cestující.

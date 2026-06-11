@@ -1,0 +1,98 @@
+/* ============================================================
+   STYLY STRÁNKY: dispecer-komunikace.html
+   ------------------------------------------------------------
+   Vzhled chatového okna pro komunikaci řidiče s dispečinkem.
+   Barvy a stíny se berou z proměnných v theme.css.
+   ============================================================ */
+
+/* Vycentrování chatu doprostřed tmavé stránky. */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-page);
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Obal celého chatu - světlý panel se zaoblenými rohy. */
+.chat-wrap {
+    width: 100%;
+    max-width: 600px;
+    background: var(--bg-screen);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hlavička chatu s názvem a tlačítkem Zpět. */
+.chat-header {
+    background: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.chat-title {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+/* margin-left: auto odsune tlačítko Zpět úplně doprava. */
+.back-btn {
+    margin-left: auto;
+}
+
+/* Prostor se zprávami - roste (flex: 1) a při přetečení se posouvá. */
+.chat-body {
+    padding: 12px;
+    flex: 1;
+    overflow: auto;
+    background: #fafafa;
+}
+
+/* Jedna zpráva = "bublina". */
+.msg {
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    max-width: 85%;
+}
+
+/* Odchozí zpráva (od řidiče) - světle modrá, zarovnaná doprava. */
+.msg.out {
+    background: #e6f0ff;
+    align-self: flex-end;
+}
+
+/* Příchozí zpráva (od dispečera) - bílá s rámečkem. */
+.msg.in {
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+/* Spodní lišta se vstupním polem a tlačítkem Odeslat. */
+.chat-footer {
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 8px;
+}
+
+/* Vstupní pole pro zprávu - flex: 1 vyplní volné místo v liště. */
+#msg-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+/* Ukazatel síly signálu (barvu nastavuje JavaScript podle hodnoty). */
+.signal {
+    font-weight: 700;
+}

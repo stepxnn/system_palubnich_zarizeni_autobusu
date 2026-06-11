@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nastavení</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/pages/nastaveni.css">
+</head>
+<body>
+    <div class="nastaveni-page">
+        <header class="nastaveni-header">
+            <button id="zpet-btn" class="zpet-btn" aria-label="Zpět na panel řidiče">
+                ← Zpět
+            </button>
+            <h2 class="nastaveni-title">Nastavení</h2>
+        </header>
+
+        <main class="nastaveni-content">
+            <section class="sekce">
+                <h4 class="sekce-nadpis">Výběr linky</h4>
+                <p class="sekce-popis">Vyberte linku a směr jízdy pro aktuální spoj.</p>
+                <div id="linky-list" class="linky-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="../dist/nastaveni.js"></script>
+</body>
+</html>

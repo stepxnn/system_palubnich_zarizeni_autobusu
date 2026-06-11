@@ -1,56 +1,53 @@
-// Tento soubor slouží jako hlavní vstupní bod pro aplikaci, kde jsou importovány třídy TiskarnaJizdenek, Validator a Displejcestujici, a jsou vytvořeny jejich instance. Tyto instance jsou pak přidány do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací. Také je zde definována funkce zobrazinfo, která umožňuje zobrazit informace o všech třech zařízeních v konzoli po jejím zavolání.
-import { TiskarnaJizdenek } from './TiskarnaJizdenek.js';
-import { Validator } from './Validator.js';
-import { Displejcestujici } from './DisplejCestujici.js';
-import { VnejsiPanel } from './VnejsiPanel.js';
-import { DispecerKomunikace } from './DispecerKomunikace.js';
-import { PalubniPocitac } from './PalubniPocitac.js';
-import { linky } from './data.js';
-// Vytvoření instancí tiskárny jízdenek, validatoru a displeje pro cestujícího s příslušnými parametry. Tyto instance reprezentují zařízení používaná v systému veřejné dopravy a jsou připraveny k použití pro zobrazení informací a testování funkcionality.
-const tiskarna = new TiskarnaJizdenek(1, 'Tiskárna', true, 100, 0);
-const validator = new Validator(2, 'Validator', true, 0, new Date());
-const linka = linky[0]; // Předpokládáme, že chceme použít první linku z dat pro zobrazení informací na displeji cestujícího.
-const displejCestujici = new Displejcestujici(3, 'Displej cestující', true, linka.zastavky[0], linka.zastavky, linka.cislo, new Date(), 1, ['P6', 'P7'], new Date());
-const vnejsiPanel = new VnejsiPanel(4, 'Vnější panel', true, linka.cislo, linka.smer, linka.zastavky);
-const dispecerKomunikace = new DispecerKomunikace(5, 'Dispečer komunikace', true, [], 80);
-const palubniPocitac = new PalubniPocitac(tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace);
-// Přidání instancí tiskárny, validatoru a displeje cestujícího do globálního objektu window, aby byly přístupné z konzole pro testování a zobrazení informací.
+// ============================================================
+// STRÁNKA: index.html (přihlašovací obrazovka)
+// ------------------------------------------------------------
+// Hlavní vstupní bod aplikace. Sestaví palubní systém a obsluhuje
+// přihlašovací formulář řidiče. Po úspěšném přihlášení přesměruje
+// na panel řidiče (panel-ridice.html).
+// ============================================================
+import { vytvorPalubniSystem } from './sestaveniSystemu.js';
+// Vytvoření všech zařízení na jednom místě (viz sestaveniSystemu.ts).
+// Destrukturalizace: z vráceného objektu si vybalíme jednotlivé proměnné.
+const { tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace, palubniPocitac } = vytvorPalubniSystem();
+// Debugování přes konzoli prohlížeče: instance přidáme do globálního objektu window.
+// (window as any) říká TypeScriptu: "Vím, co dělám, dovol mi tam přidat tuhle vlastnost."
 window.tiskarna = tiskarna;
 window.validator = validator;
 window.displejCestujici = displejCestujici;
 window.vnejsiPanel = vnejsiPanel;
 window.dispecerKomunikace = dispecerKomunikace;
 window.palubniPocitac = palubniPocitac;
-// Přidání funkce zobrazinfo do globálního objektu window, která umožní zobrazení informací o tiskárně jízdenek v konzoli po jejím zavolání.
-window.zobrazinfo = () => {
-    tiskarna.zobrazInfo();
-    validator.zobrazInfo();
-    displejCestujici.zobrazInfo();
-    vnejsiPanel.zobrazInfo();
-    dispecerKomunikace.zobrazInfo();
-};
-export { TiskarnaJizdenek, Validator, Displejcestujici, VnejsiPanel, DispecerKomunikace };
-// Připojí obsluhu přihlášení: najde tlačítko přes getElementById, načte inputy a zavolá prihlasRidice
+// Zavoláním zobrazinfo() v konzoli se vypíše stav všech zařízení.
+// Výpis deleguje na palubní počítač, který obejde všechna zařízení.
+window.zobrazinfo = () => palubniPocitac.zobrazInfo();
+// Připojí obsluhu přihlášení: najde tlačítko, načte inputy a zavolá prihlasRidice.
 function setupLogin() {
+    // DOM manipulace: hledáme HTML elementy na stránce podle jejich ID.
     const loginBtn = document.getElementById('login-btn');
     if (!loginBtn)
         return;
-    // skryjeme chybovou hlášku při načtení stránky
+    // Skryjeme chybovou hlášku při načtení stránky.
     const initialError = document.getElementById('error-msg');
     if (initialError)
         initialError.style.display = 'none';
+    // Event Listener (posluchač událostí): čeká, až uživatel klikne na tlačítko.
     loginBtn.addEventListener('click', (ev) => {
-        ev.preventDefault();
+        ev.preventDefault(); // Zamezí obnovení stránky (výchozí chování formuláře).
+        // Přetypování (casting): říkáme, že element je vstupní pole
+        // (HTMLInputElement), abychom mohli číst jeho .value.
         const usernameEl = document.getElementById('username');
         const passwordEl = document.getElementById('password');
-        const username = usernameEl ? usernameEl.value.trim() : '';
+        const username = usernameEl ? usernameEl.value.trim() : ''; // .trim() odstraní mezery na krajích
         const password = passwordEl ? passwordEl.value : '';
         try {
+            // Ověření kódu a hesla deleguje palubní počítač (hledá v data.ts).
             const ok = palubniPocitac.prihlasRidice(username, password);
             if (ok) {
+                // Úspěch: přesměrování na panel řidiče.
                 window.location.href = 'panel-ridice.html';
             }
             else {
+                // Neúspěch: zobrazení chybové hlášky změnou CSS stylu.
                 const errorMsg = document.getElementById('error-msg');
                 if (errorMsg)
                     errorMsg.style.display = 'block';
@@ -61,4 +58,5 @@ function setupLogin() {
         }
     });
 }
+// DOMContentLoaded zajistí, že se skript spustí až po načtení celého HTML.
 document.addEventListener('DOMContentLoaded', setupLogin);

@@ -1,0 +1,34 @@
+/* ============================================================
+   STYLY STRÁNKY: index.html (přihlašovací obrazovka)
+   ------------------------------------------------------------
+   Základní vzhled obrazovky (.screen, .header, .logo atd.)
+   je definovaný v theme.css - tady jsou jen úpravy navíc.
+   ============================================================ */
+
+/* Vycentrování přihlašovacího formuláře doprostřed stránky (vodorovně i svisle). */
+body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+/* main musí být flex kontejner, aby uvnitř správně zarovnal .screen. */
+main { width: 100%; display: flex; align-items: center; justify-content: center; }
+
+/* Přihlašovací "obrazovka" - světle šedá karta s zakulacenými rohy. */
+.screen {
+    background: #e6e6e6;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Nadpis "Palubní počítač" uvnitř karty. */
+.screen h3 { margin: 0 0 12px 0; font-size: 20px; color: #222; }
+
+/* W3.CSS přidává stín k .w3-card-2 - tady ho rušíme, aby nestál na sobě s naším stínem. */
+.screen .w3-card-2 { background: transparent; box-shadow: none; }
+
+/* Vstupní pole pro kód a heslo. */
+.w3-input { padding: 12px; border-radius: 6px; border: 1px solid #dcdcdc; }
+
+/* Tlačítko Přihlásit - modrý přechod, bílý text, bez rámečku. */
+#login-btn { background: linear-gradient(180deg, #0b62c9, #0749a6); color: #fff; border: 0; }

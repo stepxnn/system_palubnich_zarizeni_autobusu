@@ -1,0 +1,145 @@
+/* ============================================================
+   STYLY STRÁNKY: nastaveni.html
+   ============================================================ */
+
+body {
+    background: #f4f6f9;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.nastaveni-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px 32px;
+}
+
+/* --- Hlavička --- */
+.nastaveni-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0 12px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 24px;
+}
+
+.zpet-btn {
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #1565C0;
+    transition: background 0.15s;
+}
+
+.zpet-btn:hover {
+    background: #e8f0fe;
+}
+
+.nastaveni-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #111;
+}
+
+/* --- Sekce --- */
+.sekce {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sekce-nadpis {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #111;
+}
+
+.sekce-popis {
+    margin: 0 0 16px;
+    font-size: 0.88rem;
+    color: #6b7785;
+}
+
+/* --- Karta linky --- */
+.linky-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.linka-karta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left;
+    width: 100%;
+}
+
+.linka-karta:hover {
+    border-color: #90b8f0;
+    background: #f0f6ff;
+}
+
+.linka-karta.aktivni {
+    border-color: #1565C0;
+    background: #e8f0fe;
+}
+
+.linka-cislo {
+    min-width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1565C0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 900;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.linka-karta.aktivni .linka-cislo {
+    background: #0d47a1;
+}
+
+.linka-info {
+    flex: 1;
+}
+
+.linka-smer {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 3px;
+}
+
+.linka-zastávky {
+    font-size: 0.82rem;
+    color: #6b7785;
+}
+
+.linka-check {
+    font-size: 1.4rem;
+    color: #1565C0;
+    visibility: hidden;
+    flex-shrink: 0;
+}
+
+.linka-karta.aktivni .linka-check {
+    visibility: visible;
+}

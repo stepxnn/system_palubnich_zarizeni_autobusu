@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dispečer - komunikace</title>
+
+    <!-- theme.css = společné barvy a proměnné, pages/dispecer-komunikace.css = vzhled chatu. -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/pages/dispecer-komunikace.css">
+</head>
+
+<body>
+    <!-- Chatové okno pro komunikaci řidiče s dispečinkem. -->
+    <div class="chat-wrap">
+        <!-- Hlavička s názvem a tlačítkem pro návrat na panel řidiče. -->
+        <div class="chat-header">
+            <div class="chat-title">Dispečer - komunikace</div>
+            <button id="back-btn" class="w3-button back-btn">Zpět</button>
+        </div>
+
+        <!-- Sem JavaScript vykresluje historii zpráv. -->
+        <div id="chat-body" class="chat-body"></div>
+
+        <!-- Spodní lišta: síla signálu, pole pro zprávu a tlačítko Odeslat. -->
+        <div class="chat-footer">
+            <div id="signal" class="signal">Síla signálu: —</div>
+            <input id="msg-input" type="text" placeholder="Napište zprávu...">
+            <button id="send-btn" class="w3-button w3-blue">Odeslat</button>
+        </div>
+    </div>
+
+    <!-- Logika stránky je v TypeScriptu (src/stranky/dispecer-komunikace.ts), zde se načítá zkompilovaná verze. -->
+    <script type="module" src="../dist/stranky/dispecer-komunikace.js"></script>
+</body>
+
+</html>

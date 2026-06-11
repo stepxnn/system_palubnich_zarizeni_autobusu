@@ -1,0 +1,58 @@
+/* ============================================================
+   STYLY STRÁNKY: validator.html
+   ------------------------------------------------------------
+   Drobné úpravy navíc - základní vzhled obrazovky (.screen, .header,
+   .label, .price atd.) je společný a definovaný v theme.css.
+   ============================================================ */
+
+/* Vycentrování obrazovky validatoru doprostřed stránky. */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Obsah obrazovky se skládá pod sebe (sloupec). */
+.screen {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sekce s vydanou jízdenkou - oddělená čarou, skrytá dokud jízdenka není. */
+#ticket-section {
+    display: none;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #ccc;
+}
+
+#ticket-section .ticket-nadpis {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+#ticket-section .ticket-udaje {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#ticket-section .ticket-cena-radek {
+    margin-top: 12px;
+}
+
+#ticket-section .ticket-cena-label {
+    color: #2196F3;
+}
+
+#ticket-price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+#ticket-section .ticket-cas {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+}

@@ -1,19 +1,24 @@
-// Abstraktní třída - nelze z ní vytvořit objekt přímo, slouží jako základ pro potomky
+// ============================================================
+// TŘÍDA: PalubniZarizeni (společný předek všech zařízení)
+// ============================================================
+// Abstraktní třída (Abstract Class): Slouží jako šablona nebo společný základ pro ostatní zařízení.
+// Nelze vytvořit instanci přímo (např. new PalubniZarizeni()), musí se z ní vždy dědit.
 class PalubniZarizeni {
-    // Constructor - zavolá se automaticky při vytvoření objektu, nastaví atributy
+    // Konstruktor: Spouští se při vytváření instance (new ...). 
+    // Inicializuje základní vlastnosti, které má každé palubní zařízení (ID, název, stav).
     constructor(id, nazev, jeAktivni) {
         this.id = id;
         this.nazev = nazev;
         this.jeAktivni = jeAktivni;
     }
-    // Zapne zařízení - nastaví jeAktivni na true
+    // Veřejná metoda pro aktivaci zařízení.
     aktivuj() {
         this.jeAktivni = true;
     }
-    // Vypne zařízení - nastaví jeAktivni na false
+    // Veřejná metoda pro deaktivaci zařízení.
     deaktivuj() {
         this.jeAktivni = false;
     }
 }
-// export třídy, aby ji mohly používat jiné soubory
+// Export: Umožňuje tuto třídu importovat v jiných souborech pomocí 'import'.
 export { PalubniZarizeni };

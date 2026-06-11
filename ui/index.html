@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palubní počítač</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/pages/index.css">
 </head>
 <body>
+    <!-- Přihlašovací obrazovka palubního počítače. Ověření kódu a hesla
+         řidiče obsluhuje skript dist/index.js (zdroj: src/index.ts). -->
     <main class="w3-container">
-        <h3 class="w3-center">Palubní počítač</h3>
-        <form id="login-form" novalidate class="w3-card-2 w3-padding">
+        <div class="screen">
+            <h3 class="w3-center">Palubní počítač</h3>
+            <form id="login-form" novalidate class="w3-card-2 w3-padding">
             <div class="w3-section">
                 <label for="username">Kód</label>
                 <input id="username" name="username" class="w3-input" type="text" placeholder="Zadejte kód" required autocomplete="username" />
@@ -22,7 +27,8 @@
                 <button id="login-btn" type="submit" class="w3-button w3-block w3-blue w3-large">Přihlásit</button>
             </div>
             <div id="error-msg" role="alert" class="w3-text-red" style="display:none">Nesprávný kód nebo heslo</div>
-        </form>
+            </form>
+        </div>
     </main>
 
     <script type="module" src="../dist/index.js"></script>

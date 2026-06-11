@@ -1,3 +1,9 @@
+// ============================================================
+// TŘÍDA: TiskarnaJizdenek
+// ------------------------------------------------------------
+// Model tiskárny jízdenek - hlídá zásobu papíru a počítá výtisky.
+// ============================================================
+
 // Import třídy PalubniZarizeni, protože TiskarnaJizdenek je její potomek.
 import { PalubniZarizeni } from './PalubniZarizeni.js';
 import { Jizdenka } from './typy.js';
@@ -16,22 +22,21 @@ class TiskarnaJizdenek extends PalubniZarizeni {
         this.pocetVytisteno = pocetVytisteno;
     }
 
-    // Metoda pro tisk jízdenky - zkontroluje dostatek papíru a aktualizuje počet vytisknutých jízdenek a zbývající papír.
+    // Tisk jízdenky: pokud došel papír, vrátí false (tisk se nepovedl).
+    // Jinak zvýší počítadlo vytištěných jízdenek, ubere papír a vrátí true.
     public tiskJizdenku(jizdenka: Jizdenka): boolean {
         if (this.zbyvajiciPapir <= 0) {
-            return false
+            return false;
         }
-            this.pocetVytisteno++;
-            this.zbyvajiciPapir--;
-            return true;
+        this.pocetVytisteno++;
+        this.zbyvajiciPapir--;
+        return true;
     }
 
-    // Metoda pro tisk jízdenky - zkontroluje dostatek papíru.
-    public dochaziPapir(): boolean{
-        if (this.zbyvajiciPapir <= 20) {
-            return true;
-        }
-        return false;
+    // Vrací true, když zbývá 20 % papíru nebo méně (čas na výměnu role).
+    // Výsledek porovnání je rovnou boolean, takže není potřeba if/else.
+    public dochaziPapir(): boolean {
+        return this.zbyvajiciPapir <= 20;
     }
     
     // Implementace abstraktní metody zobrazInfo - vypíše informace o tiskárně jízdenek.
