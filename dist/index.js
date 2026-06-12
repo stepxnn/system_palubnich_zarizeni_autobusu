@@ -8,13 +8,11 @@
 import { vytvorPalubniSystem } from './sestaveniSystemu.js';
 // Vytvoření všech zařízení na jednom místě (viz sestaveniSystemu.ts).
 // Destrukturalizace: z vráceného objektu si vybalíme jednotlivé proměnné.
-const { tiskarna, validator, displejCestujici, vnejsiPanel, dispecerKomunikace, palubniPocitac } = vytvorPalubniSystem();
+const { validator, displejCestujici, dispecerKomunikace, palubniPocitac } = vytvorPalubniSystem();
 // Debugování přes konzoli prohlížeče: instance přidáme do globálního objektu window.
 // (window as any) říká TypeScriptu: "Vím, co dělám, dovol mi tam přidat tuhle vlastnost."
-window.tiskarna = tiskarna;
 window.validator = validator;
 window.displejCestujici = displejCestujici;
-window.vnejsiPanel = vnejsiPanel;
 window.dispecerKomunikace = dispecerKomunikace;
 window.palubniPocitac = palubniPocitac;
 // Zavoláním zobrazinfo() v konzoli se vypíše stav všech zařízení.

@@ -122,6 +122,31 @@ function setupLogoutAndClock() {
     setInterval(updateDateTime, 1000);
 }
 // ------------------------------------------------------------
+// MOBILNÍ TABY (přepínání mezi "Zastávky" a "Jízdenky" na mobilu)
+// ------------------------------------------------------------
+function prepniTab(nazev) {
+    const page = document.querySelector('.page');
+    if (!page)
+        return;
+    page.className = page.className.replace(/\btab-\w+/g, '').trim();
+    page.classList.add(`tab-${nazev}`);
+    document.querySelectorAll('.mobile-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === nazev);
+    });
+}
+function setupMobileTabs() {
+    const page = document.querySelector('.page');
+    if (page)
+        page.classList.add('tab-zastavky');
+    document.querySelectorAll('.mobile-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const cil = tab.dataset.tab;
+            if (cil)
+                prepniTab(cil);
+        });
+    });
+}
+// ------------------------------------------------------------
 // TLAČÍTKA LEVÉ LIŠTY (navigace na další obrazovky)
 // ------------------------------------------------------------
 function setupNavigaci() {
@@ -269,6 +294,9 @@ function setupTickets() {
                 pocetPasem = vypocitejPocetPasem(zastavkaOd, zastavkaDo);
                 const odNazev = linka.zastavky[zastavkaOd];
                 nastavTextyVyberu(odNazev, nazev, pocetPasem);
+                // Na mobilu přepneme automaticky na kartu Jízdenky.
+                if (window.innerWidth <= 600)
+                    prepniTab('jizdenky');
             }
             else {
                 // Trasa už byla kompletní: začínáme nový výběr od této zastávky.
@@ -366,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLogoutAndClock();
     setupNavigaci();
     setupTickets();
+    setupMobileTabs();
     syncDisplayState();
     // Každou sekundu aktualizujeme časy na displeji cestujícího.
     setInterval(() => {

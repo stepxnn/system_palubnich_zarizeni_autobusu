@@ -14,7 +14,7 @@ body {
     background-color: #e6e6e6; /* Typická světle šedá pro PID displeje */
     width: 100%;
     max-width: 1024px; /* Standardní rozlišení */
-    aspect-ratio: 16 / 9;
+    height: 576px;
     display: flex;
     flex-direction: column;
     border-radius: 8px;

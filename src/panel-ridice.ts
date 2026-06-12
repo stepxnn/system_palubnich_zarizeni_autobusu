@@ -134,6 +134,31 @@ function setupLogoutAndClock(): void {
 }
 
 // ------------------------------------------------------------
+// MOBILNÍ TABY (přepínání mezi "Zastávky" a "Jízdenky" na mobilu)
+// ------------------------------------------------------------
+
+function prepniTab(nazev: string): void {
+    const page = document.querySelector<HTMLElement>('.page');
+    if (!page) return;
+    page.className = page.className.replace(/\btab-\w+/g, '').trim();
+    page.classList.add(`tab-${nazev}`);
+    document.querySelectorAll<HTMLElement>('.mobile-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === nazev);
+    });
+}
+
+function setupMobileTabs(): void {
+    const page = document.querySelector<HTMLElement>('.page');
+    if (page) page.classList.add('tab-zastavky');
+    document.querySelectorAll<HTMLElement>('.mobile-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const cil = tab.dataset.tab;
+            if (cil) prepniTab(cil);
+        });
+    });
+}
+
+// ------------------------------------------------------------
 // TLAČÍTKA LEVÉ LIŠTY (navigace na další obrazovky)
 // ------------------------------------------------------------
 
@@ -283,6 +308,8 @@ function setupTickets(): void {
                 pocetPasem = vypocitejPocetPasem(zastavkaOd, zastavkaDo);
                 const odNazev = linka.zastavky[zastavkaOd];
                 nastavTextyVyberu(odNazev, nazev, pocetPasem);
+                // Na mobilu přepneme automaticky na kartu Jízdenky.
+                if (window.innerWidth <= 600) prepniTab('jizdenky');
             } else {
                 // Trasa už byla kompletní: začínáme nový výběr od této zastávky.
                 zastavkaOd = index;
@@ -392,6 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLogoutAndClock();
     setupNavigaci();
     setupTickets();
+    setupMobileTabs();
     syncDisplayState();
 
     // Každou sekundu aktualizujeme časy na displeji cestujícího.

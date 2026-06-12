@@ -9,15 +9,33 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
-/* Obsah obrazovky se skládá pod sebe (sloupec). */
+/* Přepis sdíleného .screen – odstraní pevný poměr stran, aby obsah nikdy nezmizl. */
 .screen {
     display: flex;
     flex-direction: column;
+    aspect-ratio: unset;
+    width: 100%;
+    max-width: 420px;
+    min-height: unset;
+}
+
+/* Obsah nesmí ořezávat ani přesahovat – povolíme scroll a zarovnáme nahoru. */
+.screen .content {
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+    .screen .stop  { font-size: 20px; }
+    .screen .dest  { font-size: 17px; }
+    .screen .price { font-size: 22px; }
 }
 
 /* Sekce s vydanou jízdenkou - oddělená čarou, skrytá dokud jízdenka není. */

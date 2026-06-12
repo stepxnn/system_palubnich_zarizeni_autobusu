@@ -1,34 +1,17 @@
-/* ========================================
-   IMPORTY A PROMĚNNÉ
-   ======================================== */
 @import url('theme.css');
 
-
-/* ========================================
-   HLAVNÍ LAYOUT (GRID)
-   ======================================== */
-/* Základní rozložení stránky pomocí CSS Grid:
-   - 3 sloupce: 80px (levá lišta) + flexibilní střed + 300px (pravý panel)
-   - 2 řádky: auto (hlavička) + 1fr (obsah)
-   - Vytváří layout: hlavička/hlavička/pravá část
-                      levá/střed/pravá
-*/
+/* Celá stránka rozdělená do gridu: úzká levá lišta, střed se zastávkami, pravý panel jízdenek.
+   Hlavička přes celou šířku nahoře (grid-area "header" sahá přes sloupce left + center). */
 .page {
   display: grid;
   grid-template-columns: 80px 1fr 300px;
   grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header right"
-    "left center right";
+  grid-template-areas: "header header right" "left center right";
   width: 100vw;
   height: 100vh;
 }
 
-
-/* ========================================
-   HLAVIČKA (NAHOŘE)
-   ======================================== */
-/* Horizontální pruh s informacemi: datum, číslo linky, zpoždění, čas, odhlášení */
+/* Bílý pruh na vrchu stránky s datem, linkou, zpožděním a časem. */
 header {
   grid-area: header;
   background: #fff;
@@ -36,35 +19,17 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
   position: relative;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
 }
 
-/* Rozložení hlavičky na tři části: levá (datum/linka), střední (zpoždění), pravá (čas/odhlášení) */
-.header-left {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-  margin-left: 12px;
-}
+/* Tři části hlavičky — levá (datum + číslo linky), střední (zpoždění), pravá (čas). */
+.header-left  { display: flex; align-items: center; gap: 12px; margin-left: 12px; }
+.header-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.header-right  { display: flex; align-items: center; gap: 12px; }
 
-.header-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Datum - šedá barva, menší font */
+/* Aktuální datum — menší šedý text. */
 .date {
   font-size: 0.95rem;
   color: #6b7785;
@@ -72,46 +37,36 @@ header {
   opacity: 0.9;
 }
 
-/* Číslo linky - tučné, zaoblený rámeček s tlumným modrým pozadím */
+/* Rámeček s číslem linky (např. "705"). */
 .line-number {
   font-weight: 900;
   font-size: 1.45rem;
   min-width: 92px;
-  height: auto;
   padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(11, 98, 201, 0.15);
+  border: 1px solid rgba(11,98,201,0.15);
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(11, 98, 201, 0.04);
+  box-shadow: 0 6px 18px rgba(11,98,201,0.04);
 }
 
-/* Zpoždění - velké, silné, modré číslo */
-.delay {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: var(--blue-dark);
-  letter-spacing: 0.6px;
-}
+/* Zpoždění spoje — velké modré číslo uprostřed hlavičky. */
+.delay { font-size: 1.6rem; font-weight: 900; color: var(--blue-dark); letter-spacing: 0.6px; }
 
-/* Čas - zaoblený rámeček s tmavým textem */
+/* Aktuální čas — ohraničený rámeček vpravo v hlavičce. */
 .time {
   font-size: 1.15rem;
   font-weight: 800;
   padding: 8px 10px;
   background: #fff;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 }
 
-
-/* ========================================
-   LEVÁ LIŠTA (SVISLÝ PANEL S IKONAMI)
-   ======================================== */
-/* Úzký panel se svislými tlačítky s ikonami (např. tiskárna, validator, atd.) */
+/* Úzký svislý panel vlevo s ikonovými tlačítky (tiskárna, validator…). */
 .left {
   grid-area: left;
   padding: 8px 6px;
@@ -123,7 +78,7 @@ header {
   align-items: center;
 }
 
-/* Velká tlačítka se ikonami */
+/* Širší tlačítko s ikonou a textem — varianta pro levou lištu. */
 .left .btn-large {
   display: flex;
   align-items: center;
@@ -138,13 +93,10 @@ header {
   touch-action: manipulation;
 }
 
-.left .btn-large svg.icon {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
-}
+/* SVG ikona uvnitř .btn-large — pevná velikost, nepřizpůsobuje se flexu. */
+.left .btn-large svg.icon { width: 20px; height: 20px; flex: 0 0 20px; }
 
-/* Ikonová tlačítka - čtvercová, středovaná */
+/* Čtvercové tlačítko jen s ikonou (bez textu). */
 .left .icon-btn {
   width: 62px;
   height: 62px;
@@ -157,32 +109,10 @@ header {
   background: #fff;
 }
 
-/* Ikona uvnitř tlačítka */
-.left .left-icon {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
-  display: block;
-}
+/* Obrázková ikona uvnitř .icon-btn. */
+.left .left-icon { width: 38px; height: 38px; object-fit: contain; display: block; }
 
-/* Skrytý text pro čtečky obrazovky */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-
-/* ========================================
-   STŘEDNÍ PANEL (SEZNAM ZASTÁVEK)
-   ======================================== */
-/* Centrální část s seznamem zastávek na jejich klikání */
+/* Střední část stránky — scrollovatelný seznam zastávek. */
 .center {
   grid-area: center;
   padding: 16px;
@@ -194,11 +124,9 @@ header {
   -webkit-overflow-scrolling: touch;
 }
 
-.center h5 {
-  margin: 0 0 6px 0;
-}
+.center h5 { margin: 0 0 6px 0; }
 
-/* Kontejner seznamu zastávek - sloupcový seznam centrovaný na stránce */
+/* Seznam zastávek — centrovaný sloupec s maximální šířkou. */
 #zastavkovy-list {
   width: 100%;
   max-width: 620px;
@@ -210,7 +138,7 @@ header {
   list-style: none;
 }
 
-/* Tlačítka zastávek - velké, tučné, dotykově přívětivé */
+/* Jedno tlačítko zastávky — velké, dotykově přívětivé. */
 #zastavkovy-list button.stop-item {
   display: block;
   width: 100%;
@@ -226,31 +154,14 @@ header {
   box-sizing: border-box;
 }
 
-/* Aktivní zastávka - modrý rámeček a světle modrá výplň */
-#zastavkovy-list button.stop-item.active {
-  border-color: #2e7d32;
-  background: linear-gradient(180deg, #e8f1ff, #d6eaff);
-}
+/* Aktuální zastávka — modravé podbarvení. */
+#zastavkovy-list button.stop-item.active  { border-color: #2e7d32; background: linear-gradient(180deg, #e8f1ff, #d6eaff); }
+/* Výchozí zastávka trasy (odkud) — modrá. */
+#zastavkovy-list button.stop-item.stop-od  { background: #1565C0; color: #fff; border-color: #1565C0; }
+/* Cílová zastávka trasy (kam) — zelená. */
+#zastavkovy-list button.stop-item.stop-kam { background: #2E7D32; color: #fff; border-color: #2E7D32; }
 
-/* Výchozí zastávka (odkud) - modrá */
-#zastavkovy-list button.stop-item.stop-od {
-  background: #1565C0;
-  color: #fff;
-  border-color: #1565C0;
-}
-
-/* Cílová zastávka (kam) - zelená */
-#zastavkovy-list button.stop-item.stop-kam {
-  background: #2E7D32;
-  color: #fff;
-  border-color: #2E7D32;
-}
-
-
-/* ========================================
-   PRAVÝ PANEL (JÍZDENKY)
-   ======================================== */
-/* Panel s tlačítky pro prodej a management jízdenek */
+/* Pravý panel s tlačítky pro prodej jízdenek. */
 .right {
   grid-area: right;
   padding: 12px;
@@ -262,14 +173,10 @@ header {
   overflow: auto;
 }
 
-/* Skupina jízdenek - sloupec tlačítek */
-.ticket {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+/* Skupina tlačítek pro jednu kategorii jízdenek (např. Dospělý, Senior…). */
+.ticket { display: flex; flex-direction: column; gap: 8px; }
 
-/* Velké tlačítko pro jednu jízdenku */
+/* Základní velké tlačítko jízdenky. */
 .ticket button.ticket-btn {
   width: 100%;
   padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
@@ -281,27 +188,10 @@ header {
   touch-action: manipulation;
 }
 
-/* Barvy tlačítek: primární (modrá), vydání (zelená), storno (červená) */
-.ticket button.ticket-btn.primary {
-  background: linear-gradient(180deg, var(--blue-dark), #0749a6);
-}
+/* Řádek s dvěma tlačítky vedle sebe (např. – a +). */
+.ticket-row { display: flex; gap: 8px; align-items: stretch; }
 
-.ticket button.ticket-btn.issue {
-  background: linear-gradient(180deg, var(--green), #1e7a34);
-}
-
-.ticket button.ticket-btn.cancel {
-  background: linear-gradient(180deg, var(--red), #b02a37);
-}
-
-/* Řádek s dvěma menšími tlačítky vedle sebe */
-.ticket-row {
-  display: flex;
-  gap: 8px;
-  align-items: stretch;
-}
-
-/* Půlka tlačítka - zaujímá polovinu šířky */
+/* Jedno z tlačítek v .ticket-row — zabírá rovnou polovinu šířky. */
 .ticket-row .half-btn {
   flex: 1;
   padding: 14px var(--btn-padding-horizontal);
@@ -313,41 +203,23 @@ header {
   box-sizing: border-box;
 }
 
-.ticket-row .half-btn.w3-blue {
-  background: linear-gradient(180deg, var(--blue-dark), #0749a6);
-}
+/* Modrý gradient — primární akce, výchozí barva tlačítek. */
+.ticket button.ticket-btn.primary,
+.ticket-row .half-btn.w3-blue,
+.w3-button.w3-block.w3-blue,
+.w3-button.w3-block.w3-blue.w3-large { background: linear-gradient(180deg, var(--blue-dark), #0749a6); color: #fff; }
 
-.ticket-row .half-btn.w3-green {
-  background: linear-gradient(180deg, var(--green), #1e7a34);
-}
+/* Zelený gradient — vydání jízdenky / potvrzení. */
+.ticket button.ticket-btn.issue,
+.ticket-row .half-btn.w3-green,
+.w3-button.w3-block.w3-green { background: linear-gradient(180deg, var(--green), #1e7a34); color: #fff; }
 
-.ticket-row .half-btn.w3-red {
-  background: linear-gradient(180deg, var(--red), #b02a37);
-}
+/* Červený gradient — storno / zrušení. */
+.ticket button.ticket-btn.cancel,
+.ticket-row .half-btn.w3-red,
+.w3-button.w3-block.w3-red { background: linear-gradient(180deg, var(--red), #b02a37); color: #fff; }
 
-/* Vybrané tlačítko - modrý obrys a stín */
-.ticket button.selected,
-.ticket .half-btn.selected {
-  outline: 3px solid rgba(11, 98, 201, 0.18);
-  box-shadow: 0 6px 18px rgba(11, 98, 201, 0.06);
-  transform: translateY(-1px);
-}
-
-/* Prázdný prostor pro zarovnání gridu */
-.half-spacer {
-  flex: 1;
-}
-
-/* Malý prostor mezi tlačítky pro vydávání jízdenek */
-#vydat-btn {
-  margin-bottom: 10px;
-}
-
-
-/* ========================================
-   OSTATNÍ PRVKY
-   ======================================== */
-/* W3.CSS tlačítka - sjednocení vzhledu */
+/* Sdílené rozměry a zarovnání pro w3-button bloky (přepisují výchozí W3.CSS styl). */
 .w3-button.w3-block.w3-blue,
 .w3-button.w3-block.w3-blue.w3-large,
 .w3-button.w3-block.w3-green,
@@ -361,29 +233,24 @@ header {
   box-sizing: border-box;
 }
 
-.w3-button.w3-block.w3-blue {
-  background: linear-gradient(180deg, var(--blue-dark), #0749a6);
-  color: #fff;
+/* Vybrané tlačítko — modrý obrys a lehký posun nahoru. */
+.ticket button.selected,
+.ticket .half-btn.selected {
+  outline: 3px solid rgba(11,98,201,0.18);
+  box-shadow: 0 6px 18px rgba(11,98,201,0.06);
+  transform: translateY(-1px);
 }
 
-.w3-button.w3-block.w3-green {
-  background: linear-gradient(180deg, var(--green), #1e7a34);
-  color: #fff;
-}
+/* Prázdný flex element pro zarovnání v .ticket-row (vyplní místo chybějícího tlačítka). */
+.half-spacer { flex: 1; }
 
-.w3-button.w3-block.w3-red {
-  background: linear-gradient(180deg, var(--red), #b02a37);
-  color: #fff;
-}
+/* Odsazení pod tlačítkem "Vydat" — vizuální oddělení od storna. */
+#vydat-btn { margin-bottom: 10px; }
 
-/* Ikony SVG - tenkovaní čára */
-svg.icon {
-  stroke: #111;
-  fill: none;
-  stroke-width: 1.6;
-}
+/* SVG ikony — obrys bez výplně, standardní tloušťka čáry. */
+svg.icon { stroke: #111; fill: none; stroke-width: 1.6; }
 
-/* Čtvercové tlačítko s ikonou a textem */
+/* Tlačítko s ikonou a textem vedle sebe — obecná třída. */
 .btn-square {
   width: 100%;
   height: 56px;
@@ -394,168 +261,116 @@ svg.icon {
   gap: 12px;
 }
 
+/* Tab bar pro přepínání panelů — viditelný jen na mobilu. */
+.mobile-tab-bar { display: none; }
 
-/* ========================================
-   RESPONZIVNÍ DESIGN - TABLET
-   ======================================== */
-/* Při šířce menší než 900px se layout změní */
-@media (max-width: 900px) {
-  .page {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas:
-      "header"
-      "left"
-      "center";
-  }
-
-  .right {
-    order: 3;
-    grid-area: center;
-    height: auto;
-  }
-}
-
-
-/* ========================================
-   RESPONZIVNÍ DESIGN - MOBIL
-   ======================================== */
-/* Úpravy pro telefony (max-width: 600px) */
+/* ---- RESPONZIVNÍ VERZE PRO MOBIL (šířka ≤ 600 px) ---- */
 @media (max-width: 600px) {
-  /* Menší padding a font pro mobilní zařízení */
+  /* Kompaktnější odsazení tlačítek na malé obrazovce. */
   :root {
-    --btn-padding-vertical: 12px;
-    --btn-padding-horizontal: 12px;
-    --btn-font-size: 1rem;
+    --btn-padding-vertical: 11px;
+    --btn-padding-horizontal: 10px;
+    --btn-font-size: 0.97rem;
   }
 
-  /* Layout se změní: střed nahoře, jízdenky uprostřed, ikony dole */
+  /* Zakáže scrollování celé stránky — obsah se scrolluje uvnitř panelů. */
+  html, body { height: 100%; overflow: hidden; }
+
+  /* Na mobilu: jeden sloupec, grid oblasti pod sebou; tab bar nahrazuje levou lištu nahoře. */
   .page {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto auto;
-    grid-template-areas:
-      "header"
-      "center"
-      "right"
-      "left";
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "header" "tabs" "content" "left";
     height: 100vh;
   }
 
-  /* Hlavička - menší padding a mezery */
-  header {
-    padding: 10px;
+  /* Menší odsazení hlavičky. */
+  header { padding: 8px 12px; }
+  .header-left  { margin-left: 4px; gap: 8px; }
+  /* Na mobilu jsou prvky hlavičky v řádku, ne ve sloupci. */
+  .header-center { flex-direction: row; gap: 8px; }
+  .date        { font-size: 0.82rem; }
+  .line-number { font-size: 1.1rem; padding: 5px 9px; min-width: 72px; border-radius: 7px; }
+  .delay       { font-size: 1.2rem; }
+  .time        { font-size: 0.95rem; padding: 5px 7px; }
+
+  /* Přepínací lišta mezi "Zastávky" a "Jízdenky" — zobrazí se jen na mobilu. */
+  .mobile-tab-bar {
+    grid-area: tabs;
+    display: flex;
+    border-bottom: 2px solid #e0e0e0;
+    background: #fff;
   }
 
-  .header-left {
-    margin-left: 8px;
-    gap: 8px;
+  /* Jedno záložkové tlačítko v tab baru. */
+  .mobile-tab {
+    flex: 1;
+    padding: 11px 8px;
+    font-size: 0.97rem;
+    font-weight: 700;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    color: #888;
+    letter-spacing: 0.2px;
+    transition: color 0.15s, border-color 0.15s;
   }
 
-  .header-center {
-    flex-direction: row;
-    gap: 8px;
-  }
+  /* Aktivní záložka — modrý spodní okraj. */
+  .mobile-tab.active { color: var(--blue-dark); border-bottom-color: var(--blue-dark); }
 
-  .date {
-    font-size: 0.9rem;
-  }
+  /* Střed i pravý panel zabírají stejnou grid oblast — přepínají se JavaScriptem. */
+  .center, .right { grid-area: content; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
-  .line-number {
-    font-size: 1.15rem;
-    padding: 6px 10px;
-    border-radius: 8px;
-  }
+  /* Pravý panel je výchozně skrytý — zobrazí ho třída .tab-jizdenky na .page. */
+  .right { display: none; border-left: 0; border-top: none; padding: 10px; background: #fafafa; }
 
-  .delay {
-    font-size: 1.25rem;
-  }
+  /* Přepínání aktivního panelu přes třídu na .page. */
+  .page.tab-jizdenky .center { display: none; }
+  .page.tab-jizdenky .right  { display: flex;  }
+  .page.tab-zastavky .center { display: flex;  }
+  .page.tab-zastavky .right  { display: none;  }
 
-  .time {
-    font-size: 1rem;
-    padding: 6px 8px;
-  }
+  /* Střední panel na mobilu — zastávky na celou šířku. */
+  .center { padding: 10px; gap: 8px; flex-direction: column; align-items: stretch; }
+  /* Nadpis seznamu zastávek je na mobilu skrytý (šetří místo). */
+  .center h5 { display: none; }
 
-  /* Střed - seznam zastávek se přizpůsobí celé šířce */
-  .center {
-    padding: 10px;
-    gap: 10px;
-  }
+  #zastavkovy-list { max-width: 100%; }
+  /* Větší tlačítka zastávek pro pohodlné dotykové ovládání. */
+  #zastavkovy-list button.stop-item { padding: 15px 14px; font-size: 1.08rem; min-height: 58px; border-radius: 9px; }
 
-  #zastavkovy-list {
-    max-width: 100%;
-    gap: 10px;
-  }
+  /* Box s vybranou trasou (od–do) — kompaktnější na mobilu. */
+  #vybrany-tah { font-size: 0.9rem; padding: 8px; border-radius: 7px; }
 
-  #zastavkovy-list button.stop-item {
-    padding: 16px 14px;
-    font-size: 1.12rem;
-    min-height: 64px;
-    border-radius: 10px;
-  }
+  .ticket { gap: 7px; }
+  /* Nadpis skupiny jízdenek — malý, velká písmena. */
+  .ticket h5 { font-size: 0.88rem; margin: 0 0 2px 0; color: #555; text-transform: uppercase; letter-spacing: 0.4px; }
+  .ticket-row { gap: 6px; }
+  /* Menší odsazení pro poloviční tlačítka na úzkém displeji. */
+  .ticket-row .half-btn { padding: 13px 6px; font-size: 0.93rem; border-radius: 7px; }
 
-  /* Jízdenky - plná šířka na mobilním telefonu */
-  .right {
-    grid-area: right;
-    order: 2;
-    padding: 10px;
-    border-left: 0;
-    border-top: 1px solid #eee;
-  }
+  #vydat-btn, #storno-btn { padding: 13px 10px; font-size: 0.97rem; }
 
-  .ticket {
-    gap: 10px;
-  }
-
-  .ticket-row {
-    flex-direction: row;
-    gap: 8px;
-  }
-
-  .ticket-row .half-btn {
-    padding: 14px;
-    font-size: 1rem;
-    border-radius: 8px;
-  }
-
-  /* Levá lišta se stane spodním řádkem s ikonami vedle sebe */
-  .left {
-    grid-area: left;
-    order: 3;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 8px 6px;
-    border-right: 0;
-    border-top: 1px solid #eee;
-  }
-
-  .left .icon-btn {
-    width: 68px;
-    height: 68px;
-    padding: 8px;
-  }
-
-  .left .left-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  /* Zajistit snadné dotyky na tlačítka */
+  /* W3.CSS tlačítka na mobilu — centrovaný text (na desktopu je vlevo). */
   .w3-button.w3-block.w3-blue,
   .w3-button.w3-block.w3-green,
-  .w3-button.w3-block.w3-red {
-    padding: 12px 10px;
-    font-size: 1rem;
+  .w3-button.w3-block.w3-red { padding: 13px 10px; font-size: 0.97rem; text-align: center; }
+
+  /* Na mobilu je levá lišta přesunuta dolů jako spodní panel s ikonami. */
+  .left {
+    grid-area: left;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 4px;
+    border-right: 0;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
   }
 
-  /* Zabránění scrollování na úrovni stránky - povoluje se jen ve středu */
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .center {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  .left .icon-btn  { width: 56px; height: 56px; padding: 7px; border-radius: 8px; }
+  .left .left-icon { width: 36px; height: 36px; }
 }
